@@ -1,0 +1,27 @@
+<main class="container">
+	<div class="menu">
+			<div class="logo"[ngStyle]="{'opacity': appear}">
+				<i class="fas fa-plane"></i>
+			</div>
+			<section class="content">
+				<div class="inner" [ngStyle]="{'opacity': appear}">
+					<h1> Pensycountries</h1>
+					<p>With this web site you can watch the country you want, its flag, currency, language, its population, etc, beside that you can filter the countries depending on the continent they are located.</p>	
+				</div>
+			</section>
+			<nav class="nav">
+				<ul class="list">
+					<li>
+						<a class="transparent" [routerLink]="['/countries']" >Countries</a>
+					</li>
+					<li>
+						<a class="transparent" [routerLink]="['/about']" >About us</a>
+					</li>
+					<li>
+						<a class="transparent" [routerLink]="['/searcher']" >Searcher</a>
+					</li>
+				</ul>
+			</nav>
+	</div>
+
+</main>

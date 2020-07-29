@@ -1,0 +1,149 @@
+.container{
+	background-color: rgba(0,0,0, .5);
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+	width: 90%;
+	position: relative;
+	margin: 30px auto;
+	padding: 30px;
+	animation: appearComponents 1s ease;
+
+}
+
+.container section {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin-top: 20px;
+
+}
+
+.container section button:hover{
+	background: rgba(255,255,255, 0.175);
+	transition: all 0.6s ease; 
+}
+
+.container .box-button {
+	justify-content: flex-end;
+}
+
+
+
+.container .box-button button {
+	padding: 10px 15px;
+	background-color: transparent;
+	border: 1px solid #fff;
+	color: #fff;
+}
+
+.container .searcher {
+	justify-content: center;
+	margin-bottom: 30px;
+}
+.container .searcher input, button{
+	background: transparent;
+	color: #fff;
+	border: 1px solid #fff;
+	padding: 5px 10px;
+}
+
+input {
+	margin-right: 5px;
+	outline: 0;
+}
+
+.container .searcher button:hover {
+	background: rgba(255,255,255, 0.175);
+	transition: all 0.6s ease;
+}
+
+.container .country {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.container .country figure {
+	width: 18%;
+	border-bottom: 1px solid #fff;
+	margin-bottom: 15px;
+	padding: 10px;
+	cursor: pointer;
+	transition: all 0.2s ease; 
+	animation: appearComponents 1s ease;
+}
+
+.container .country figure:hover{
+	border-bottom: none;
+	box-shadow: 0 10px 20px rgb(31, 29, 29);
+	transform: scale(1.1, 1.1) translate(0px, -5px);
+
+}
+
+.container .country figure:active{
+	transform: scale(1.1, 1.1) translate(0px, -1px);
+}
+
+.container .country figure img{
+	vertical-align: top;
+	width: 100%;
+	height: 100px;
+	margin: 0 auto;
+}
+
+
+.container .country figure figcaption h5{
+	text-align: center;
+	margin: 5px 0;
+	color: #fff;
+
+}
+.container .error {
+	background: rgba(174,4,0, 0.325);
+	display: block;
+	border-radius: 3px;
+	border: 1px solid #ff1a14;
+	padding: 10px 5px;
+	animation: appearComponents 1s ease;
+}
+.container .error h5 {
+	font-size: 24px;
+	font-weight: bold;
+	color: #fff;
+	margin-bottom: 10px;
+
+}
+.container .error p {
+	font-size: 20px;
+	color: #fff;
+}
+
+/*---------- MEDIA QUERIES ----------*/
+
+@media screen and (max-width: 600px){
+	.container .country figure {
+		width: 48%;
+	}
+}
+
+@media screen and (max-width: 450px){
+	.container .searcher input, button{
+		width: 40%;
+	}
+	.container .box-button button {
+		width: 100%;
+	}
+
+	.container .country figure {
+		width: 90%;
+	}
+	.container .error h5 {
+		font-size: 20px;
+	}
+	.container .error p {
+		font-size: 16px;
+	}
+}

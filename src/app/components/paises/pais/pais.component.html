@@ -1,0 +1,27 @@
+<main class="container">
+	<figure *ngFor="let countryObj of country">
+		<img [src]="countryObj.flag" [alt]="countryObj.name">
+		<h4> {{countryObj.name}} </h4>
+		<figcaption>
+			<div>
+				<p>Capital: {{countryObj.capital}} </p>
+				<p>Population: {{countryObj.population}} </p>
+			</div>
+			<div>
+				<p>Currency: {{countryObj.currencies[0].name}} </p>
+				<p>Continent: {{countryObj.region}} </p>
+			</div>
+		</figcaption>
+	</figure>
+	<section>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	</section>
+	<button class="button-border-right" (click)="goBackToCountries()" >Go back to countries</button>
+	<button  class="button-border-left" (click)="goBackToSearcher()" >Go back to searcher</button>
+
+</main>

@@ -1,0 +1,124 @@
+.container {
+	background-color: rgba(0,0,0, .5);
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	width: 90%;
+	position: relative;
+	margin: 30px auto;
+	padding: 30px;
+	animation: appearComponents 1s ease;
+
+}
+figure {
+	width: 60%;
+}
+
+figure img{
+	vertical-align: top;
+	width: 80%;
+	height: 300px;
+	display: block;
+	margin: 0 auto;
+}
+
+figure h4 {
+	color: #fff;
+	font-size: 32px;
+	letter-spacing: 2px;
+	text-align: center;
+	margin: 20px 0;
+
+}
+
+figure figcaption {
+	display: flex;
+	justify-content: space-around;
+	flex-direction: row;
+	margin-bottom: 20px;
+	line-height: 30px;
+	border-left-width: 1px;
+	border-right-width: 1px;
+	border-style: solid;
+	border-color: #fff; 
+	position: relative;
+
+}
+
+figure figcaption::before {
+	content: '';
+	position: absolute;
+	display: block;
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-right-width: 0;
+	border-left-width: 0; 
+	border-style: solid;
+	border-color: #fff; 
+	width: 30%;
+	height: 100%;
+
+}
+
+figure figcaption > *{
+	margin: 30px 0;
+}
+section {
+	margin-bottom: 30px;
+	width: 90%;
+}
+section p {
+	text-align: justify;
+	letter-spacing: 1px;
+	line-height: 20px;
+}
+
+button {
+	display: block;
+	background: transparent;
+	color: #fff;
+	border: 1px solid #fff;
+	padding: 15px 20px;
+	cursor: pointer;
+}
+.button-border-left{
+	border-left-width: 0px; 
+}
+
+.button-border-right{
+	border-right-width: 0px; 
+}
+
+button:hover {
+	background: rgba(255,255,255, 0.175);
+	transition: all 0.6s ease;
+}
+
+@media screen and (max-width: 750px){
+	figure img{
+		width: 100%;
+		height: 150px;
+	}
+	.container figure figcaption{
+		flex-direction: column;
+	}
+
+	.container figure figcaption::before{
+		display: none;
+	}
+	.container figure figcaption div {
+		text-align: center;
+	}
+}
+
+@media screen and (max-width: 450px){
+	
+	figure img{
+		height: 100px;
+	}
+	.container button {
+		border: 1px solid #fff;
+		width: 90%;
+	}
+}

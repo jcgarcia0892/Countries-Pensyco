@@ -1,0 +1,29 @@
+<main class="container">
+	<section class="box-button">
+		<button (click)="goToMenu()">Go Back</button>
+	</section>
+	<section class="searcher">
+		<input type="text" (keyup.enter)="searchCountry(country.value)" #country>
+		<button (click)="searchCountry(country.value)">Search Country</button>
+		
+	</section>
+
+	<section class="country">
+		<figure *ngFor="let country of searcher;" (click)="goToCountry(country.name)">
+			<img [src]="country.flag" alt="flag of {{country.name}}">
+			<figcaption>
+				<h5> {{country.name}} </h5>
+			</figcaption>
+		</figure>
+	</section>
+
+	<section class="error" *ngIf="showEmpty === true">
+			<h5>Error</h5>
+			<p>*Please introduce the name of a country</p>
+	</section>
+	<section class="error" *ngIf="showMisspell === true">
+			<h5>Error</h5>
+			<p>We haven't found the country: {{country.value}}</p>
+	</section>
+</main>
+

@@ -1,0 +1,115 @@
+footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+    background-color: rgb(32, 32, 32); 
+}
+
+table {
+    color:#fff;
+    width: 80%;
+
+}
+
+tr {
+    width: 100%;
+}
+
+th {
+    /*height: 100px;*/
+
+    
+    
+}
+
+h5 {
+    font-size: 24px;
+    font-weight: 100;
+    margin: 15px 0;
+}
+
+
+i {
+    font-size: 38px;
+    cursor: pointer;
+}
+
+.border-left {
+    
+    border-left: 1px solid rgb(177, 177, 177);
+}
+
+.border-bottom {
+    border-bottom: 1px solid rgb(177, 177, 177);
+
+}
+
+.margin-left {
+    margin-left: 10px;
+}
+
+.margin-right {
+    margin-right: 10px;
+}
+
+.margin-bottom {
+    margin-bottom: 20px;
+}
+
+
+.wider {
+    width: 60%;
+}
+
+.wide {
+    width: 20%;
+}
+
+
+.display-flex {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.fa-instagram {
+    color: #4c68d7;
+}
+
+.fa-facebook-official {
+    color: #3b5998;
+}
+
+.fa-paypal {
+    color: #3b7bbf;
+}
+
+.fa-credit-card-alt {
+    color: #008080;
+}
+
+.fa-plane {
+    font-size: 60px;
+    background-image: linear-gradient(to right, #0349b3, #5a89cf);
+    letter-spacing: 2px;
+    color: transparent;
+    background-clip: text;
+    transform: translateY(30px);
+}
+
+.logo-heading {
+    font-size: 40px;
+    text-transform: uppercase;
+    font-weight: 700;
+    background-image: linear-gradient(to right, #0349b3, #5a89cf);
+    letter-spacing: 2px;
+    color: transparent;
+    background-clip: text;
+    margin-top: 30px;
+
+}
+

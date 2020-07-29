@@ -1,0 +1,404 @@
+h3{
+	font-size: 32px;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+h4 {
+	font-size: 24px;
+	letter-spacing: 2px;
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+h5 {
+	font-size: 20px;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+p {
+	text-align: justify;
+	font-size: 16px;
+	color: #fff;
+}
+
+.margin-right {
+	margin-right: 20px;
+}
+
+.margin-bottom {
+	margin-bottom: 30px;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+	width: 90%;
+	position: relative;
+	margin: 0 auto;
+	animation: appearComponents 1s ease;
+}
+
+.container > *{
+	color: #fff;
+
+}
+
+.about-header {
+	background-image: 	linear-gradient(to right bottom, rgba(4, 81, 87, .4), rgba(7, 150, 160, .4)),
+						url(./../../../../assets/img/about-picture.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 100%;
+	padding: 300px 0;
+	clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+	position: relative;
+	text-align: center;
+}
+
+.about-header-heading {
+	width: 70%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.btn {
+	font-size: 16px;
+	font-weight: 600;
+	letter-spacing: 2px;
+	padding: 15px 20px;
+	color: #252525;
+	border-radius: 100px;
+	border: none;
+	position: relative;
+	transition: all ease .3s;
+	outline: 0;
+
+}
+
+.btn:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 15px rgba(0,0,0,.4);
+}
+
+.btn:active {
+	transform: translateY(-1px);
+	box-shadow: 0 3px 8px rgba(0,0,0,.4);
+}
+
+.btn::after {
+	content: '';
+	border-radius: 100px;
+	width: 100%;
+	height: 100%;
+	background-color: #fff;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left:0;
+	z-index: -1;
+	transition: all ease .3s;
+
+}
+
+.btn:hover::after {
+	transform: scaleX(1.4) scaleY(1.6);
+	opacity: 0;
+}
+
+.btn-white {
+	background: #fff;
+}
+
+.container .box-button {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+.container .box-button button {
+	padding: 10px 15px;
+	background-color: transparent;
+	border: 1px solid #fff;
+	color: #fff;
+}
+/*.container section button:hover{
+	background: rgba(255,255,255, 0.175);
+	transition: all 0.6s ease; 
+}*/
+
+.about-features {
+	width: 100%;
+	padding: 121px 30px;
+	background-color: rgba(0,0,0,.4) ;
+	margin-top: -91px;
+}
+
+.about-features > * {
+	float: left;
+	
+}
+
+
+
+
+.about-feature {
+	width: 23%;
+	text-align: center;
+}
+
+.about-feature .icon {
+	font-size: 120px;
+	margin-bottom: 30px;
+	transition: all .3s ease;
+}
+
+.about-feature:hover .icon {
+	transform: scale( 1.2, 1.2);
+}
+
+.about-feature .color-feature_1 {
+	color: #0349b3;
+}
+
+.about-feature .color-feature_2 {
+	color: #b3a703;
+}
+
+.about-feature .color-feature_3 {
+	color: #03b30c;
+}
+
+.about-feature .color-feature_4 {
+	color: #03a4d4;
+}
+
+/*---------- 	section - explore-----------*/
+
+.about-explore {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	
+	background-image: 	linear-gradient(to right bottom, rgba(4, 81, 87, .4), rgba(7, 150, 160, .4)),
+						url(./../../../../assets/img/about-explore.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	width: 100%;
+	padding-top: 150px;
+	padding-bottom: 100px;
+	clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+	position: relative;
+	text-align: center;
+	margin-top: -150px;
+}
+
+.about-explore .cards {
+	width: 80%;
+	position: relative;
+	perspective: 1500px;
+	height: 200px;
+}
+
+
+.about-explore .card {
+	width: 100%;
+	height: 200px;
+	margin: 0 auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	backface-visibility: hidden;
+	transition: all .3s ease;
+}
+
+.about-explore .card_front {
+	outline: 1px solid #fff;
+	transform: skewX(-15deg);
+	
+}
+
+.about-explore .cards:hover .card_front {
+	transform: rotateX(180deg);
+
+}
+
+.about-explore .card_back {
+	transform: rotateX(-180deg);
+	background-image: linear-gradient(to right bottom, #0349b3, #5a89cf);
+}
+
+.about-explore .cards:hover .card_back {
+	transform: rotateX(0);
+	transform: skewX(-15deg);
+
+}
+
+.about-explore .card_front .heading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 28px;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	font-weight: 100;
+}
+
+.about-explore .card_back .text {
+	width: 70%;
+	font-size: 20px;
+	letter-spacing: 2px;
+	text-align: justify;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+
+/*--------- About - Philosophy ----------*/
+
+.about-philosophy {
+	width: 100%;
+	
+}
+
+.about-philosophy .photo {
+	width: 33.33%;
+	height: 700px;
+	float: left;
+	position: relative;
+}
+
+.about-philosophy .photo::after {
+	content: '';
+	position: absolute;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	transition: all .6s ease;
+	
+}
+
+.about-philosophy .photo_1::after {
+	background-image: linear-gradient(to right bottom, rgba(0, 97, 92, 0.3), rgba(180, 63, 63, .3));
+}
+
+.about-philosophy .photo_2::after {
+	background-image: linear-gradient(to right bottom, rgba(179, 167, 3, .3), rgba(247, 231, 6, 0.3));
+}
+
+.about-philosophy .photo_3::after {
+	background-image: linear-gradient(to right bottom, rgba(3, 74, 181, 0.3), rgba(16, 106, 240, 0.3));
+}
+
+.about-philosophy .photo:hover::after {
+	opacity: 0;
+}
+
+
+
+.about-philosophy .effect{
+	width: 100%;
+	height: 1px;
+	padding: 50px 15px 0 15px;
+	font-size: 30px;
+	position: absolute;
+	top: 93%;
+	clip-path: polygon(0 20%, 50% 0, 100% 20%, 100% 100%, 0 100%);
+	opacity: 0;
+	transition: all .6s ease;
+}
+
+.about-philosophy .effect_1 {
+	background-image: linear-gradient(to right bottom, #b30303, #b43f3f);
+
+}
+.about-philosophy .effect_2 {
+	background-image: linear-gradient(to right bottom, #998f03, #bdb65b);
+
+}
+.about-philosophy .effect_3 {
+	background-image: linear-gradient(to right bottom, #0349b3, #5a89cf);
+
+}
+
+
+.about-philosophy .photo_1 {
+	background-image: url(./../../../../assets/img/mision.jpg);
+	background-size: cover;
+	/*background-position-x: -80px;*/
+}
+
+.about-philosophy .photo_1:hover .effect{
+	height: 200px;
+	transform: translateY(-150px);
+	opacity: 1;
+	z-index: 2;
+}
+
+
+
+.about-philosophy .photo_2 {
+	background-image: url(./../../../../assets/img/vision.jpg);
+	background-size: cover;
+	
+}
+
+.about-philosophy .photo_2:hover .effect {
+	height: 200px;
+	transform: translateY(-150px);
+	opacity: 1;
+	z-index: 2;
+}
+
+.about-philosophy .photo_3 {
+	background-image: url(./../../../../assets/img/experience.jpg);
+	background-size: cover;	
+}
+
+.about-philosophy .photo_3:hover .effect {
+	height: 200px;
+	transform: translateY(-150px);
+	opacity: 1;
+	z-index: 2;
+
+}
+
+
+.about-philosophy .effect .heading {
+	font-size: 24px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+
+
+
+
+
+@media screen and (max-width: 450px){
+	h4 {
+		font-size: 24px;
+	}
+
+	h5 {
+		font-size: 20px;
+	}
+	p {
+		font-size: 16px;
+	}
+}
