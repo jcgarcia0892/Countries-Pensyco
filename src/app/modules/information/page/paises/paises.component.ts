@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PaisesService } from './../../../services/paises.service';
+import { PaisesService } from './../../../../services/paises.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,17 +14,16 @@ export class PaisesComponent implements OnInit {
   countriesCompleted:any = [];
 
   constructor(	private countriesService:PaisesService,
-  				private router:Router) { 
+  				      private router:Router) { 
             this.countriesService.getCountries()
             .subscribe( (data:any)=>{
               
                 this.countries = data;
-                console.log(data);
+                console.log(this.countries);
                 this.countriesCompleted = data;
-        
             })
-          
-        }
+            
+  }
         
   ngOnInit() {
     

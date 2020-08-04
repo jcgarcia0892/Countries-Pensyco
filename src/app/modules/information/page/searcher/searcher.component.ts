@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PaisesService } from './../../../services/paises.service';
+import { PaisesService } from './../../../../services/paises.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,29 +16,30 @@ export class SearcherComponent implements OnInit {
   constructor(	private countryService:PaisesService,
                 private router:Router) {
 
-                  this.countryService.getCountries()
-                    .subscribe( (data:any)=>{
-                  
-                      this.countries = data;
-        
-                  })
-                 }
+    this.countryService.getCountries()
+      .subscribe( (data:any)=>{
+        this.countries = data;
+      })
+    }
 
   ngOnInit() {
   }
 
 
   searchCountry(word){
+
     let countriesArr:any[] = [];
     word = word.toLowerCase();
     this.showEmpty = false;
     this.showMisspell = false;
+
     if(word.length === 0){
 
       this.showEmpty = true;
       countriesArr.splice(0, countriesArr.length);
   
     }else{
+
       for(let country of this.countries){
 
         let name = country.name.toLowerCase();
@@ -56,10 +57,7 @@ export class SearcherComponent implements OnInit {
       this.showEmpty = false;
       
     }
-
     this.searcher = countriesArr;
-
-    
   }
 
   goToMenu(){

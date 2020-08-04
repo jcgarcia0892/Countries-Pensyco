@@ -1,3 +1,8 @@
+/*mas padding o mas espacio en los iconos, osurecer el sombreado de la zona de los iconos
+Arreglar la fuente quitarle el skew la los div en la seccion de trajectory y agregarle transparencia
+al outline cursor default narja la velocidad de animacion 
+*/
+
 h3{
 	font-size: 32px;
 	text-transform: uppercase;
@@ -51,7 +56,7 @@ p {
 
 .about-header {
 	background-image: 	linear-gradient(to right bottom, rgba(4, 81, 87, .4), rgba(7, 150, 160, .4)),
-						url(./../../../../assets/img/about-picture.jpg);
+						url(./../../../../../assets/img/about-picture.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
 	width: 100%;
@@ -84,7 +89,8 @@ p {
 }
 
 .btn:hover {
-	transform: translateY(-3px);
+	cursor: pointer;
+	transform: translateY(-2px);
 	box-shadow: 0 8px 15px rgba(0,0,0,.4);
 }
 
@@ -129,15 +135,11 @@ p {
 	border: 1px solid #fff;
 	color: #fff;
 }
-/*.container section button:hover{
-	background: rgba(255,255,255, 0.175);
-	transition: all 0.6s ease; 
-}*/
 
 .about-features {
 	width: 100%;
-	padding: 121px 30px;
-	background-color: rgba(0,0,0,.4) ;
+	padding: 120px 30px 150px 30px;
+	background-color: rgba(0,0,0,.8) ;
 	margin-top: -91px;
 }
 
@@ -190,17 +192,17 @@ p {
 	align-items: center;
 	
 	background-image: 	linear-gradient(to right bottom, rgba(4, 81, 87, .4), rgba(7, 150, 160, .4)),
-						url(./../../../../assets/img/about-explore.jpg);
+						url(./../../../../../assets/img/about-explore.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
 	width: 100%;
-	padding-top: 150px;
+	padding-top: 200px;
 	padding-bottom: 100px;
-	clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+	clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%);
 	position: relative;
 	text-align: center;
-	margin-top: -150px;
+	margin-top: -145px;
 }
 
 .about-explore .cards {
@@ -208,6 +210,7 @@ p {
 	position: relative;
 	perspective: 1500px;
 	height: 200px;
+	cursor: default;
 }
 
 
@@ -219,12 +222,11 @@ p {
 	top: 0;
 	left: 0;
 	backface-visibility: hidden;
-	transition: all .3s ease;
+	transition: all .6s ease;
 }
 
 .about-explore .card_front {
 	outline: 1px solid #fff;
-	transform: skewX(-15deg);
 	
 }
 
@@ -235,12 +237,11 @@ p {
 
 .about-explore .card_back {
 	transform: rotateX(-180deg);
-	background-image: linear-gradient(to right bottom, #0349b3, #5a89cf);
+	background-color:  rgba(0,0,0, .8);
 }
 
 .about-explore .cards:hover .card_back {
 	transform: rotateX(0);
-	transform: skewX(-15deg);
 
 }
 
@@ -271,6 +272,7 @@ p {
 
 .about-philosophy {
 	width: 100%;
+	overflow: hidden;
 	
 }
 
@@ -311,7 +313,7 @@ p {
 
 .about-philosophy .effect{
 	width: 100%;
-	height: 1px;
+	height: 200px;
 	padding: 50px 15px 0 15px;
 	font-size: 30px;
 	position: absolute;
@@ -336,13 +338,12 @@ p {
 
 
 .about-philosophy .photo_1 {
-	background-image: url(./../../../../assets/img/mision.jpg);
+	background-image: url(./../../../../../assets/img/mision.jpg);
 	background-size: cover;
 	/*background-position-x: -80px;*/
 }
 
 .about-philosophy .photo_1:hover .effect{
-	height: 200px;
 	transform: translateY(-150px);
 	opacity: 1;
 	z-index: 2;
@@ -351,7 +352,7 @@ p {
 
 
 .about-philosophy .photo_2 {
-	background-image: url(./../../../../assets/img/vision.jpg);
+	background-image: url(./../../../../../assets/img/vision.jpg);
 	background-size: cover;
 	
 }
@@ -364,7 +365,7 @@ p {
 }
 
 .about-philosophy .photo_3 {
-	background-image: url(./../../../../assets/img/experience.jpg);
+	background-image: url(./../../../../../assets/img/experience.jpg);
 	background-size: cover;	
 }
 

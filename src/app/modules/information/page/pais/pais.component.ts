@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PaisesService } from './../../../services/paises.service';
+import { PaisesService } from './../../../../services/paises.service';
+
+
 
 @Component({
   selector: 'app-pais',
