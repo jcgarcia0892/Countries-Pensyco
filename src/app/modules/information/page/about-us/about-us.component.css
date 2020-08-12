@@ -46,7 +46,7 @@ p {
 	width: 90%;
 	position: relative;
 	margin: 0 auto;
-	animation: appearComponents 1s ease;
+	animation: appearComponents .6s ease;
 }
 
 .container > *{

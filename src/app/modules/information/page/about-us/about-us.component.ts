@@ -13,8 +13,4 @@ export class AboutUsComponent implements OnInit {
   ngOnInit() {
   }
 
-
-  goToMenu(){
-  	this.router.navigate(['/menu']);
-  }
 }

@@ -1,0 +1,162 @@
+<main class="container">
+
+    <section class="shopping-car" *ngIf="shoppingCarArr.length !== 0">
+        <div class="shopping-car-box">
+            <div>
+                <h3>Destino: </h3>
+                <p>Fecha: </p>
+            </div>
+            <table class="shopping-table">
+                <tr class="shopping-table-row">
+                    <th>Hotel</th>
+                    <th>Adress</th>
+                    <th>Person</th>
+                    <th>Price/unit</th>
+                    <th>Remove</th>
+                </tr>
+                <tr class="shopping-table-row" *ngFor="let item of shoppingCarArr; let i = index">
+                    <th> {{item.name}} </th>
+                    <th> {{item.adress}} </th>
+                    <th> {{item.person}} </th>
+                    <th> {{item.price}} </th>
+                    <th>
+                        <button (click)="removeItem(i)" class="shopping-table-remove">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                    </th>
+                </tr>
+            </table>
+
+            <form class="shopping-form" [formGroup]="forma" (ngSubmit)="sendInformation()">
+                <div class="shopping-input">
+                    <label for="name">Name</label>
+                    <input  type="text"
+                            class="text"
+                            formControlName="name"
+                            placeholder="Name"
+                            [class.is-invalid]="nameInvalid">
+                    <small class="shopping-input-error"
+                            *ngIf="nameInvalid">Please write your name</small>
+                </div>
+                <div class="shopping-input">
+                    <label for="lastName">Last Name</label>
+                    <input  type="text"
+                            class="text"
+                            formControlName="lastName"
+                            placeholder="Last Name"
+                            [class.is-invalid]="lastNameInvalid">
+                    <small class="shopping-input-error"
+                            *ngIf="lastNameInvalid">Please write your last name</small>
+                </div>
+                <div class="shopping-input">
+                    <label for="email">Email</label>
+                    <input  type="email"
+                            class="text"
+                            formControlName="email"
+                            placeholder="email"
+                            [class.is-invalid]="nameInvalid">
+                    <small class="shopping-input-error"
+                            *ngIf="lastNameInvalid">Please write your last name</small>
+                </div>
+                <div class="shopping-input">
+                    <label for="confirmEmail">Conrfirm Email</label>
+                    <input  type="email"
+                            class="text"
+                            formControlName="confirmEmail"
+                            placeholder="Confirm email"
+                            [class.is-invalid]="nameInvalid">
+                    <small class="shopping-input-error"
+                            *ngIf="nameInvalid">Please write your name</small>
+                </div>
+                
+                <div class="shopping-payment">
+                    <div class="shopping-payment-cards">
+                        <div>
+                            <label for="">Debit Card</label>
+                            <input  type="radio"
+                                    value="debit"
+                                    formControlName="payment">
+                        </div>
+                        <div>
+                            <label for="">Credit Card</label>
+                            <input  type="radio"
+                                    value="credit"
+                                    formControlName="payment">
+                        </div>
+                        <small *ngIf="paymentInvalid">Please select one payment method</small>
+                    </div>
+
+                    
+                </div>
+                <form   [formGroup]="formaDebit"
+                        (ngSubmit)="validDebit()"
+                        class="shopping-payment-debit"
+                        *ngIf="paymentDebit">
+                    <div class="shopping-payment-debit-box">
+                        <h3 class="forma-debit-heading">Choose your bank</h3>
+                        <div>
+                            <div class="shopping-payment-debit-inputs">
+                                <div>
+                                    <label for="">Bank of America</label>
+                                    <input  type="radio"
+                                    value="America"
+                                    formControlName="bank">
+                                </div>
+                                <div>
+                                    <label for="">Wells Fargo</label>
+                                    <input  type="radio"
+                                    value="Fargo"
+                                    formControlName="bank">
+                                </div>
+                                <div>
+                                    <label for="">JPMorgan Chase</label>
+                                    <input  type="radio"
+                                    value="JPMorgan"
+                                    formControlName="bank">
+                                </div>
+                            </div>
+                            <small *ngIf="bankInvalid">Please select a bank</small>
+                        </div>
+                        <div class="shopping-input-password">
+                            <div>
+                                <label for="">Password</label>
+                                <input  type="text"
+                                        class="password-debit"
+                                        placeholder="password"
+                                        formControlName="password"
+                                        [class.is-invalid]="passwordInvalid">
+                                <small *ngIf="passwordInvalid">Your password must have at least 4 characters</small>
+                            </div>
+                            <button class="btn btn-white" type="submit">Verify</button>
+                        </div>
+                    </div>
+                </form>
+                
+                <div    class="shopping-payment-credit"
+                *ngIf="paymentCredit">
+                    <form [formGroup]="formaCredit" (ngSubmit)="validCredit()">
+    
+                    </form>
+
+                </div>
+                    
+                
+                <div class="shopping-input">
+                    <p>Total to pay:  </p>
+                </div>
+                <div class="shopping-form-button">
+                    <button class="btn btn-white margin-center" type="submit">Buy</button>
+                </div>
+            </form>
+        </div>
+
+
+    </section>
+
+    <section class="error" *ngIf="shoppingCarArr.length === 0">
+        <i class="fa fa-exclamation-circle error-icon" aria-hidden="true"></i>
+        <p class="error-text">You haven't choosed any package yet</p>
+        <a [routerLink]="['/information/destinations']" class="btn btn-white">Go to Destinations</a>
+    </section>
+
+</main>

@@ -9,14 +9,7 @@ export class MenuComponent implements OnInit {
 
 	appear:number = 0;
 
-  constructor() {
-
-  		setTimeout(()=>{
-  			return this.appear = 1;
-  		}, 1000);
-
-
-   }
+  constructor() {}
 
   ngOnInit() {
   }

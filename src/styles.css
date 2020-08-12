@@ -42,7 +42,7 @@ body {
 }
 
 
-button {
+button, input {
 	font-family: 'Cairo', sans-serif !important;
 }
 /*
@@ -52,9 +52,9 @@ button {
 a {
 	text-decoration: none;
 }
-a, h1, p, i {
+/*a, h1, p, i {
 	color: #fff;
-}
+}*/
 
 ol, ul {
 	list-style: none;

@@ -3,15 +3,16 @@ import { PaisesService } from './../../../../services/paises.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-paises',
-  templateUrl: './paises.component.html',
-  styleUrls: ['./paises.component.css']
+  selector: 'app-destinations',
+  templateUrl: './destinations.component.html',
+  styleUrls: ['./destinations.component.css']
 })
-export class PaisesComponent implements OnInit {
+export class DestinationsComponent implements OnInit {
 
 
 	countries:any[] = [];
   countriesCompleted:any = [];
+  destinations:any = [];
 
   constructor(	private countriesService:PaisesService,
   				      private router:Router) { 
@@ -19,9 +20,11 @@ export class PaisesComponent implements OnInit {
             .subscribe( (data:any)=>{
               
                 this.countries = data;
-                console.log(this.countries);
                 this.countriesCompleted = data;
             })
+
+            this.destinations = countriesService.destinations;
+            console.log(this.destinations);
             
   }
         
@@ -32,11 +35,7 @@ export class PaisesComponent implements OnInit {
   
 
   goToCountry(name:string){
-  	this.router.navigate(['/country', name]);
-  }
-
-  goToMenu(){
-    this.router.navigate(['/menu']);
+  	this.router.navigate(['/information/country', name]);
   }
 
   continentFilter(continent:string){

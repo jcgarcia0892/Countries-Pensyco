@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { FooterComponent } from './component/footer/footer.component';
 import { MenuComponent } from './component/menu/menu.component';//esta es la pagina del home hay que moverla
@@ -11,11 +12,13 @@ import { MenuComponent } from './component/menu/menu.component';//esta es la pag
         MenuComponent
     ],
     imports: [
-        RouterModule
+        RouterModule,
+        CommonModule
     ],
     providers: [],
     exports: [
         //modules
+        CommonModule,
         //Components
         FooterComponent,
         MenuComponent

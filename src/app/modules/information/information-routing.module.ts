@@ -2,17 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AboutUsComponent } from './page/about-us/about-us.component';
-import { PaisComponent } from './page/pais/pais.component';
-import { PaisesComponent } from './page/paises/paises.component';
-import { PaisesVisitadosComponent } from './page/paises-visitados/paises-visitados.component';
+import { HotelsComponent } from './page/hotels/hotels.component';
+import { DestinationsComponent } from './page/destinations/destinations.component';
+import { PackagesComponent } from './page/packages/packages.component';
 import { SearcherComponent } from './page/searcher/searcher.component';
+import { ShoppingCarComponent } from './page/shopping-car/shopping-car.component';
 
 const routes: Routes = [
-    {
-      path: '',
-      redirectTo: '/information/about',
-      pathMatch: 'full'
-    },
     {
       path: '',
       children: [
@@ -21,20 +17,24 @@ const routes: Routes = [
             component: AboutUsComponent
         },
         {
-            path: 'pais',
-            component: PaisComponent
+            path: 'hotels/:name',
+            component: HotelsComponent
         },
         {
-            path:'paises',
-            component: PaisesComponent
+            path:'destinations',
+            component: DestinationsComponent
         },
         {
-            path:'paisesVisitados',
-            component: PaisesVisitadosComponent 
+            path:'packages',
+            component: PackagesComponent 
         },
         {
             path:'searcher',
             component: SearcherComponent 
+        },
+        {
+            path:'shopping',
+            component: ShoppingCarComponent
         }
       ]
     }

@@ -1,0 +1,22 @@
+<main class="container">
+	<section class="countries-header">
+		<section class="countries-header-heading">
+			<h3 class="">Places to be in Pensycountries</h3>
+			<h4>
+				Pensycountries has a lot of destination for you to visit.
+			</h4>
+			<a [routerLink]="['/main/home']" class="btn btn-white">Go to menu</a>
+		</section>
+	</section>
+
+	<section class="destinations">
+		<div class="destinations-city" *ngFor="let destination of destinations, let i of index">
+			<img class="destinations-city-img" [src]="destination.img" [alt]="destination.city">
+			<div class="destination-city-text-box">
+				<p>Destination</p>
+				<h5 class="destinations-city-heading">{{destination.city}} departing from anywhere in the world</h5>
+				<a [routerLink]="['/information/hotels', destination.city]" class="destinations-city-link">Hotels</a>
+			</div>
+		</div>
+	</section>
+</main>

@@ -60,13 +60,8 @@ export class SearcherComponent implements OnInit {
     this.searcher = countriesArr;
   }
 
-  goToMenu(){
-    this.router.navigate(['/menu']);
-
-  }
-  
   goToCountry(name:string){
-    this.router.navigate(['/country', name]);
+    this.router.navigate(['/information/country', name]);
   }
 
 }

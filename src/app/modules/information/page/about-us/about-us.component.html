@@ -1,20 +1,12 @@
 <main class="container">
 
 	<section class="about-header">
-		<!--<section class="box-button">
-			<button (click)="goToMenu()">Go Back</button>
-		</section>-->
 		<section class="about-header-heading">
 			<h3 class="">About Pensycountries</h3>
-			<!--<h5>Pensycountries has been leading the way for digital content about countries</h5>-->
 			<h4>
 				Pensycountries can take you to over more than 150 countries around the world.
 			</h4>
-			<!--<p>
-				Pensycountries has information over 150 countries around the world, give it to you for free in a way that you can read it easily, and you can find what you are looking for about any contry in a few seconds anytime you want or anywhere you are.
-			</p>-->
-
-			<button class="btn btn-white">Go to countries</button>
+			<a [routerLink]="['/main/home']" class="btn btn-white">Go to menu</a>
 		</section>
 	</section>
 	<section class="about-features">
@@ -98,5 +90,4 @@
 			</div>
 		</div>
 	</section>
-	<!--<img src="./../../../../assets/img/tierra2.jpg">-->
 </main>

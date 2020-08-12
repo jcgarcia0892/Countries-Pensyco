@@ -25,9 +25,6 @@
     transform: translate(-50%,-50%);
 }
 
-
-
-
 .menu > * {
 	text-align: center;
 	margin-top: 50px;
@@ -63,6 +60,7 @@
 
 .container .logo i{
 	font-size: 24px;
+	color: #fff;
 }
 
 .container .content {
@@ -81,9 +79,9 @@
 
 .container .content .inner{
 	margin: auto 0;
+	color: #fff;
 	animation: appear 0.5s ease;
 	animation-delay: 0.5s;
-
 }
 
 .container .content .inner h1{
@@ -111,6 +109,7 @@
 }
 
 .container .nav a{
+	color: #fff;
 	display: inline-block;
 	padding: 15px 20px;
 

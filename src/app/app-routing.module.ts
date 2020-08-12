@@ -5,22 +5,24 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
 import { InformationLayoutComponent } from './layout/information-layout/information-layout.component';
 
 const routes: Routes = [
- 
+  {
+    path: '',
+    redirectTo: 'main/home',
+    pathMatch: 'full'
+  }, 
   {
     path: 'main',
     component: MainLayoutComponent,
-    //canActivate: [ /*AuthGuard*/ ],
     loadChildren:() => import('./modules/main/main.module').then(m => m.MainModule)
   },
   {
     path: 'information',
     component: InformationLayoutComponent,
-   //canActivate: [ /*NoAuthGuard*/ ],
     loadChildren: () => import('./modules/information/information.module').then(m => m.InformationModule)
   },
   {
     path: '**',
-    redirectTo: 'home',
+    redirectTo: 'main/home',
     pathMatch: 'full'
   }
 ];

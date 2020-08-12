@@ -1,30 +1,36 @@
-<!--<main class="container">
-	<section class="box-button">
-		<button (click)="goToMenu()">Go Back</button>
+<main class="container">
+    <section class="searcher-header">
+		<section class="searcher-header-heading">
+			<h3 class="">Pensycountrie's Searcher</h3>
+			<h4>
+				You can find any country you want around the world.
+			</h4>
+			<a [routerLink]="['/main/home']" class="btn btn-white">Go to menu</a>
+		</section>
 	</section>
-	<section class="searcher">
-		<input type="text" (keyup.enter)="searchCountry(country.value)" #country>
-		<button (click)="searchCountry(country.value)">Search Country</button>
-		
+	<section class="searcher-searcher">
+		<input class="searcher-input" maxlength="20" type="text" (keyup.enter)="searchCountry(country.value)" #country>
+		<button class="searcher-button" (click)="searchCountry(country.value)">
+			Search Country
+			<i class="fa fa-search" aria-hidden="true"></i>
+		</button>
+		<div class="searcher-error" *ngIf="showEmpty === true">
+				<p class="searcher-error-text">Please introduce the name of a country</p>
+		</div>
+		<div class="searcher-error" *ngIf="showMisspell === true">
+				<p class="searcher-error-text">We haven't found the country: {{country.value}}</p>
+		</div>
 	</section>
-
-	<section class="country">
+	<section class="searcher-country">
 		<figure *ngFor="let country of searcher;" (click)="goToCountry(country.name)">
-			<img [src]="country.flag" alt="flag of {{country.name}}">
+			<img class="searcher-country-img" [src]="country.flag" alt="flag of {{country.name}}">
 			<figcaption>
-				<h5> {{country.name}} </h5>
+				<h5 class="searcher-country-heading"> {{country.name}} </h5>
 			</figcaption>
 		</figure>
 	</section>
+	
+</main>
 
-	<section class="error" *ngIf="showEmpty === true">
-			<h5>Error</h5>
-			<p>*Please introduce the name of a country</p>
-	</section>
-	<section class="error" *ngIf="showMisspell === true">
-			<h5>Error</h5>
-			<p>We haven't found the country: {{country.value}}</p>
-	</section>
-</main>-->
-<h1>Hola mundo</h1>
+
 
