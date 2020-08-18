@@ -3,13 +3,13 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { FooterComponent } from './component/footer/footer.component';
-import { MenuComponent } from './component/menu/menu.component';//esta es la pagina del home hay que moverla
+import { MenuComponent } from './component/menu/menu.component';
 
 
 @NgModule({
     declarations: [
         FooterComponent,
-        MenuComponent
+        MenuComponent,
     ],
     imports: [
         RouterModule,
@@ -21,7 +21,7 @@ import { MenuComponent } from './component/menu/menu.component';//esta es la pag
         CommonModule,
         //Components
         FooterComponent,
-        MenuComponent
+        MenuComponent,
     ]
 })
 

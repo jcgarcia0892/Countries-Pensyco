@@ -10,21 +10,12 @@ import { Router } from '@angular/router';
 export class DestinationsComponent implements OnInit {
 
 
-	countries:any[] = [];
-  countriesCompleted:any = [];
   destinations:any = [];
 
   constructor(	private countriesService:PaisesService,
   				      private router:Router) { 
-            this.countriesService.getCountries()
-            .subscribe( (data:any)=>{
-              
-                this.countries = data;
-                this.countriesCompleted = data;
-            })
-
-            this.destinations = countriesService.destinations;
-            console.log(this.destinations);
+          
+            this.destinations = this.countriesService.getDestinations();
             
   }
         
@@ -38,52 +29,6 @@ export class DestinationsComponent implements OnInit {
   	this.router.navigate(['/information/country', name]);
   }
 
-  continentFilter(continent:string){
-
-      this.countries = this.countriesCompleted;
-      switch (continent) {
-        case "Oceania":
-          this.countries = this.countries.filter( element => {
-            return element.region === continent;
-          })
-          break;
-
-        case 'Americas':
-          this.countries = this.countries.filter( element => {
-            return element.region === continent;
-          })
-          break;
-
-         case 'Africa':
-          this.countries = this.countries.filter( element => {
-            return element.region === continent;
-          })
-          break;
-
-          case 'Asia':
-          this.countries = this.countries.filter( element => {
-            return element.region === continent;
-          })
-          break;
-
-        case 'Europe':
-          this.countries = this.countries.filter( element => {
-            return element.region === continent;
-          })
-          break;
-
-        case 'Polar':
-          this.countries = this.countries.filter( element => {
-            return element.region === continent;
-          })
-          break;
-        
-        default:
-          
-          break;
-      }
-
-
-  }
+ 
 
 }

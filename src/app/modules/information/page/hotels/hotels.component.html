@@ -1,35 +1,53 @@
 <main class="container">
-	<!--
-		<figure *ngFor="let countryObj of country">
-			<img [src]="countryObj.flag" [alt]="countryObj.name">
-			<h4> {{countryObj.name}} </h4>
-			<figcaption>
-				<div>
-					<p>Capital: {{countryObj.capital}} </p>
-					<p>Population: {{countryObj.population}} </p>
-				</div>
-				<div>
-					<p>Currency: {{countryObj.currencies[0].name}} </p>
-					<p>Continent: {{countryObj.region}} </p>
-				</div>
-			</figcaption>
-		</figure>
-		<section>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		</section>
-		<button class="button-border-right" (click)="goBackToCountries()" >Go back to countries</button>
-		<button  class="button-border-left" (click)="goBackToSearcher()" >Go back to searcher</button>
-		ESCRIBIR LA ESTRUCTURA Y DARLE ESTILOS A LA PAGINA DE PAIS, CAMBIARLE EL NOMBRE POR HOTELS, CAMBIARLE
-		EL NOMBRE A LA PAGINA DE PACKAGES POR AUTOS, CAMBIAR LOS ESTILOS DEL HOME, HACER
-		LA PAGINA DEL CARRO DE COMPRAS, HACER EL LOCAL STORAGE PARA EL CARRO DE COMPRAS
-	-->
-			<h3>{{destination.city}}</h3>
+	<div class="forma-box">
+		<form [formGroup]="forma" class="forma" (ngSubmit)="book()">
+			<div class="forma-text">
+				<small [class.is-invalid]="arrivedInvalid">Arrived</small>
+				<input 	matInput [matDatepicker]="arrived"
+						[min]="minDateArrived"
+						disabled
+						formControlName="arrived">
+				<mat-datepicker-toggle matSuffix [for]="arrived"></mat-datepicker-toggle>
+				<mat-datepicker #arrived disabled="false"></mat-datepicker>
+			</div>
+	
+			<div class="forma-text">
+				<small [class.is-invalid]="departedInvalid">Departed</small>
+				<input 	matInput [matDatepicker]="departed"
+						[min]="minDateArrived"
+						disabled
+						formControlName="departed">
+				<mat-datepicker-toggle matSuffix [for]="departed"></mat-datepicker-toggle>
+				<mat-datepicker #departed disabled="false"></mat-datepicker>
+				
+			</div>
 
+			<div class="forma-text forma-button-box">
+				<small>Guest</small>
+				<button class="btn-price btn-left" (click)="sustPerson()" type="button" >-</button>
+				<div class="package-value">
+					<p> {{person}} </p>
+				</div>
+                <button class="btn-price btn-right" (click)="addPerson()" type="button" >+</button>
+			</div>
+
+			<div class="forma-text forma-button-box">
+				<small>Search</small>
+				<button class="forma-button"type="submit">
+					<i class="fa fa-search" aria-hidden="true"></i>
+				</button>
+			</div>
+
+			<div class="forma-error" *ngIf="errors">
+				<small class="is-invalid">The departed date must be before the arrived date</small>
+			</div>
+
+		</form>
+	</div>
+
+	<div *ngIf="true || showHotels">
+		
+		<h3>{{destination.city}}</h3>
 		<section class="package">
 				<div class="package-card" *ngFor="let hotel of destination.hotels">
 					<div class="image image-normal">
@@ -37,35 +55,33 @@
 						<h4 class="card-heading">{{hotel.name}}</h4>
 					</div>
 					<div class="package-content">
-						<p class="includes">Directions: {{hotel.adress}}</p>
+						<p class="includes">Address: {{hotel.adress}}</p>
 						<ul class="package-features">
-							<li>Flight Ticket</li>
+							<li>Swimming Pool</li>
 							<li class="hotel-feature">
 								<i class="hotel-feature-icon fa fa-wifi" aria-hidden="true"></i>
 								<i class="hotel-feature-icon fa fa-television" aria-hidden="true"></i>
 								<i class="hotel-feature-icon fa fa-futbol-o" aria-hidden="true"></i>
 							</li>
-							<li>Qualification: {{hotel.qualification}}</li>
-							<li>1 week</li>
+							<li>Rating: {{hotel.qualification}}</li>
+							<li>Restaurant</li>
 						</ul>
 						<div class="package-price">
-							<p class="price">${{hotel.price * hotel.person}}</p>
-							<div class="button-box">
-								<button class="button-price" (click)="subsPerson(hotel.name)" >-</button>
-								<p class="package-value">{{hotel.person}}</p>
-								<button class="button-price" (click)="addPerson(hotel.name)" >+</button>
-							</div>
+							<p class="price">{{hotel.price | currency }}</p>
+							<p>Price/person</p>
 						</div>
 						<div class="add-box">
 							<a	[routerLink]="['/information/shopping']"
 								class="add-car"
-								(click)="shoppingCar(hotel)">
-								Add to car
+								(click)="shoppingCar(hotel, person, dateArrived, dateDeparted)">
+								Add to cart
 								<i class="fa fa-shopping-cart" aria-hidden="true"></i>
 							</a>
 						</div>
 					</div>
 				</div>
 		</section>
+	</div>	
+
 
 </main>

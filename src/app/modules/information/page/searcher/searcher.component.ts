@@ -9,26 +9,24 @@ import { Router } from '@angular/router';
 })
 export class SearcherComponent implements OnInit {
   searcher:any[] = [];
-  countries:any;
+  destinations:any;
   name:any = '';
   showEmpty:boolean;
   showMisspell:boolean;
   constructor(	private countryService:PaisesService,
                 private router:Router) {
 
-    this.countryService.getCountries()
-      .subscribe( (data:any)=>{
-        this.countries = data;
-      })
-    }
+      this.destinations = this.countryService.getDestinations()
+      console.log(this.destinations);            
+  }
 
   ngOnInit() {
   }
 
 
-  searchCountry(word){
+  searchDestination(word){
 
-    let countriesArr:any[] = [];
+    let destinationsArr:any[] = [];
     word = word.toLowerCase();
     this.showEmpty = false;
     this.showMisspell = false;
@@ -36,32 +34,32 @@ export class SearcherComponent implements OnInit {
     if(word.length === 0){
 
       this.showEmpty = true;
-      countriesArr.splice(0, countriesArr.length);
+      destinationsArr.splice(0, destinationsArr.length);
   
     }else{
 
-      for(let country of this.countries){
+      for(let destination of this.destinations){
 
-        let name = country.name.toLowerCase();
+        let name = destination.city.toLowerCase();
 
         if( name.indexOf(word) >= 0 ){
-          countriesArr.push(country);
+          destinationsArr.push(destination);
         }
         
       }
 
-      if(countriesArr.length === 0){
+      if(destinationsArr.length === 0){
         this.showMisspell = true;
       }
 
       this.showEmpty = false;
       
     }
-    this.searcher = countriesArr;
+    this.searcher = destinationsArr;
   }
 
-  goToCountry(name:string){
-    this.router.navigate(['/information/country', name]);
+  goToCountry(name){
+    console.log(name);
   }
 
 }

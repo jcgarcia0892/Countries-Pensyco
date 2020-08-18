@@ -5,7 +5,7 @@ footer {
     justify-content: center;
     align-items: center;
     padding: 50px 0;
-    background-color: rgb(32, 32, 32); 
+    background-color: #202020;
     
 }
 
@@ -33,11 +33,11 @@ i {
 
 .border-left {
     
-    border-left: 1px solid rgb(177, 177, 177);
+    border-left: 1px solid #0b9ba5;
 }
 
 .border-bottom {
-    border-bottom: 1px solid rgb(177, 177, 177);
+    border-bottom: 1px solid #0b9ba5;
 
 }
 

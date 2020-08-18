@@ -11,12 +11,21 @@
 
 	<section class="destinations">
 		<div class="destinations-city" *ngFor="let destination of destinations, let i of index">
+			
 			<img class="destinations-city-img" [src]="destination.img" [alt]="destination.city">
 			<div class="destination-city-text-box">
-				<p>Destination</p>
-				<h5 class="destinations-city-heading">{{destination.city}} departing from anywhere in the world</h5>
-				<a [routerLink]="['/information/hotels', destination.city]" class="destinations-city-link">Hotels</a>
+
+				<h5 class="destinations-city-heading">{{destination.city}}</h5>
+				<p>Touristic places</p>
+				
+				<ul class="package-features">
+					<li *ngFor="let place of destination.places">{{place}}</li>
+				</ul>
+
+				<a [routerLink]="['/information/hotels', destination.city]" class="destinations-city-link">Go to Hotels</a>
+			
 			</div>
 		</div>
 	</section>
+	
 </main>
