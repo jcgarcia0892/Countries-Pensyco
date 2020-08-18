@@ -16,6 +16,7 @@ export class DestinationsComponent implements OnInit {
   				      private router:Router) { 
           
             this.destinations = this.countriesService.getDestinations();
+            console.log(this.destinations);
             
   }
         

@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-	appear:number = 0;
 
   constructor() {}
 

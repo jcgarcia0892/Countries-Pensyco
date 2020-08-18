@@ -51,13 +51,13 @@ export class HotelsComponent implements OnInit {
   }
 
 
-  addPerson(name:string){
+  addPerson(){
     if(this.person < 51){
       return this.person++;
     }
   }
 
-  sustPerson(name:string){
+  sustPerson(){
 
     if(this.person > 1){
       return this.person--;

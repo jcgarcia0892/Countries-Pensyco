@@ -13,8 +13,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { InformationLayoutComponent } from './layout/information-layout/information-layout.component';
-import {MatMenuModule, MatButtonModule} from '@angular/material';
-import { MatSliderModule } from '@angular/material/slider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -31,9 +29,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatSliderModule,
     BrowserAnimationsModule
   ],
   providers: [],

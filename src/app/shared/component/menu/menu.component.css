@@ -36,3 +36,12 @@ a {
 	width: 40%;
 	text-align: center;
 }
+
+/*---------------Media Queries ----------------*/
+
+@media screen and (max-width: 530px){
+	a {
+		font-size: 12px;
+	}
+	
+}
