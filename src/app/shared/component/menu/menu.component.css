@@ -7,7 +7,7 @@ a {
 }
 
 .link-active {
-	color: #0b9ba5;
+	color: #C1D4D9;
 	font-weight: 700;
 
 }
@@ -15,7 +15,7 @@ a {
 
 .navbar {
 	width: 100%;
-	background-color: #202020;
+	background-color: #081B26;
 	position: fixed;
 	z-index: 10;
 	display: flex;

@@ -10,7 +10,6 @@ import { MatNativeDateModule } from '@angular/material/core'
 import { AboutUsComponent } from './page/about-us/about-us.component';
 import { HotelsComponent } from './page/hotels/hotels.component';
 import { DestinationsComponent } from './page/destinations/destinations.component';
-import { SearcherComponent } from './page/searcher/searcher.component';
 import { ShoppingCarComponent } from './page/shopping-car/shopping-car.component';
 
 
@@ -19,7 +18,6 @@ import { ShoppingCarComponent } from './page/shopping-car/shopping-car.component
         AboutUsComponent,
         HotelsComponent,
         DestinationsComponent,
-        SearcherComponent,
         ShoppingCarComponent
     ],
     imports: [

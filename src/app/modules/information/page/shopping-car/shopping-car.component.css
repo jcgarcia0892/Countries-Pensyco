@@ -1,3 +1,11 @@
+h3 {
+	font-size: 32px;
+	letter-spacing: 3px;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+
 .margin-center {
     margin: 0 auto;
 }
@@ -42,7 +50,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-    border-bottom: 1px solid #0b9ba5;
+    border-bottom: 1px solid #C1D4D9;
     padding-top: 15px;
     font-size: 16px;
 }
@@ -92,7 +100,7 @@ th {
     margin-left: 10px;
     outline: 0;
     border: none;
-    border-bottom: 1px solid #0b9ba5;
+    border-bottom: 1px solid #C1D4D9;
     color: #fff;
 }
 
@@ -187,7 +195,7 @@ small {
     margin-left: 10px;
     outline: 0;
     border: none;
-    border-bottom: 1px solid #0b9ba5;
+    border-bottom: 1px solid #C1D4D9;
     color: #fff;
 }
 
@@ -208,7 +216,7 @@ small {
     margin-left: 10px;
     outline: 0;
     border: none;
-    border-bottom: 1px solid #0b9ba5;
+    border-bottom: 1px solid #C1D4D9;
     color: #fff;
 }
 
@@ -270,7 +278,7 @@ small {
 }
 
 .shopping-car-composition-img:hover{
-    outline: 5px solid #0b9ba5;
+    outline: 5px solid #C1D4D9;
     transform: scale(1.05, 1.05);
     z-index: 2;
 
@@ -295,7 +303,7 @@ small {
 
 .thanks {
     width: 60%;
-    border: 1px solid #0b9ba5;
+    border: 1px solid #C1D4D9;
     text-align: center;
     color: #fff;
     padding: 40px 0;
@@ -315,4 +323,95 @@ small {
     font-size: 144px;
     margin-bottom: 15px;
     color: #0b9ba5;
+}
+
+/*---------------Media Queries-----------------*/
+
+@media screen and (max-width: 1080px){
+    table {
+        width: 100%;
+    }
+
+    table tbody {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    table tr {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        
+    }
+
+    table > :first-child {
+        display: none;
+    }
+    table th {
+        height: 60px;
+        width: 50%;
+
+    }
+
+
+    table th[data-titulo] {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+
+    }
+
+    table th[data-titulo]::before {
+        content: attr( data-titulo);
+        width: 35%;
+        font-size: 18px;
+        font-weight: 700;
+        text-align: justify;
+    }
+
+    table .total-display {
+        display: none;
+    }
+
+ 
+}
+
+
+
+@media screen and (max-width: 900px){
+
+    table th[data-titulo]:last-child {
+        margin-bottom: 40px;
+        width: 100%;
+    }
+
+    table th[data-titulo]::before {
+        width: 100%;
+    }
+
+    table th[data-titulo]:last-child::before {
+        margin-bottom: 10px;
+    
+    }
+
+    .shopping-car-form {
+        width: 100%;
+    }
+
+    .shopping-car-composition {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 460px){
+
+    table th[data-titulo] {
+        margin-bottom: 30px;
+
+    }
+    
+   
+
 }

@@ -136,7 +136,7 @@ export class ShoppingCarComponent implements OnInit {
   createFormDebit(){
     this.formaDebit = this.fb.group({
       bank:     ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(4)]]
+      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4), this.typeNumberFunction]]
     })
   }
 
@@ -144,10 +144,10 @@ export class ShoppingCarComponent implements OnInit {
 
   createFormCredit(){
     this.formaCredit = this.fb.group({
-      creditCardNumber: ['', [Validators.required, Validators.minLength(16), Validators.maxLength(16)]],
-      creditCardMonth:  ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-      creditCardYear:   ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-      creditCardCode:   ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3)]]
+      creditCardNumber: ['', [Validators.required, Validators.minLength(16), Validators.maxLength(16), this.typeNumberFunction]],
+      creditCardMonth:  ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2), this.typeNumberFunction]],
+      creditCardYear:   ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2), this.typeNumberFunction]],
+      creditCardCode:   ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3), this.typeNumberFunction]]
     })
   }
 
@@ -189,6 +189,7 @@ export class ShoppingCarComponent implements OnInit {
 
   validCredit(){
     if(this.formaCredit.invalid){
+
       return Object.values( this.formaCredit.controls ).forEach(control => {
         control.markAsTouched();
       })
@@ -210,6 +211,22 @@ export class ShoppingCarComponent implements OnInit {
         
       }
     }
+  }
+
+  typeNumberFunction(control:FormControl):{[s:string]:boolean}{
+    
+    let codeNumber = control.value;
+    
+
+    if(isNaN(codeNumber)){
+      return {
+        codNumber:true
+      };
+
+    }
+
+    return null
+
   }
 
   emptyArr(){

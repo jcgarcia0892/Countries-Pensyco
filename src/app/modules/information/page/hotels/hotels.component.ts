@@ -105,6 +105,7 @@ export class HotelsComponent implements OnInit {
     }
     
     if(this.forma.status === "VALID"){
+      this.errors = false;
       this.showHotels = true;
     }
   }

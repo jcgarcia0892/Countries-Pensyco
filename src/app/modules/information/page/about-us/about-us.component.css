@@ -74,18 +74,6 @@ p {
 	transform: translate(-50%, -50%);
 }
 
-.container .box-button {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
-}
-
-.container .box-button button {
-	padding: 10px 15px;
-	background-color: transparent;
-	border: 1px solid #fff;
-	color: #fff;
-}
 
 .about-features {
 	width: 100%;
@@ -114,20 +102,17 @@ p {
 }
 
 .about-feature .color-feature_1 {
-	color: #0349b3;
+	color: #518C8C;
 }
 
 .about-feature .color-feature_2 {
-	color: #b3a703;
+	color: #518C8C;
 }
 
 .about-feature .color-feature_3 {
-	color: #03b30c;
+	color: #518C8C;
 }
 
-.about-feature .color-feature_4 {
-	color: #03a4d4;
-}
 
 /*---------- 	section - explore-----------*/
 
@@ -245,11 +230,11 @@ p {
 }
 
 .about-philosophy .photo_2::after {
-	background-image: linear-gradient(to right bottom, rgba(179, 167, 3, .3), rgba(247, 231, 6, 0.3));
+	background-image: linear-gradient(to right bottom, rgba(14, 50, 64, .3), rgba(81, 140, 140, .3));
 }
 
 .about-philosophy .photo_3::after {
-	background-image: linear-gradient(to right bottom, rgba(3, 74, 181, 0.3), rgba(16, 106, 240, 0.3));
+	background-image: linear-gradient(to right bottom, rgba(14, 50, 64, .3), rgba(81, 140, 140, .3));
 }
 
 .about-philosophy .photo:hover::after {
@@ -270,15 +255,15 @@ p {
 }
 
 .about-philosophy .effect_1 {
-	background-image: linear-gradient(to right bottom, #b30303, #b43f3f);
+	background-image: linear-gradient(to right bottom, #0E3240, #518C8C);
 
 }
 .about-philosophy .effect_2 {
-	background-image: linear-gradient(to right bottom, #998f03, #bdb65b);
+	background-image: linear-gradient(to right bottom, #0E3240, #518C8C);
 
 }
 .about-philosophy .effect_3 {
-	background-image: linear-gradient(to right bottom, #0349b3, #5a89cf);
+	background-image: linear-gradient(to right bottom, #0E3240, #518C8C);
 
 }
 
@@ -359,17 +344,24 @@ p {
 		font-size: 14px;
 	}
 
+
+	.about-philosophy .effect{
+		opacity: 1;
+		top: 65%;
+	}
+
 	.about-philosophy .photo_1:hover .effect {
-		transform: translateY(-200px);
+		transform: translateY(0);
 	}
 
 	.about-philosophy .photo_2:hover .effect {
-		transform: translateY(-200px);
+		transform: translateY(0);
 	}
 
 	.about-philosophy .photo_3:hover .effect {
-		transform: translateY(-200px);
+		transform: translateY(0);
 	}
+
 
 }
 

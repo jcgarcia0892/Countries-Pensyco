@@ -1,3 +1,4 @@
+
 footer {
     display: flex;
     flex-direction: row;
@@ -5,7 +6,7 @@ footer {
     justify-content: center;
     align-items: center;
     padding: 50px 0;
-    background-color: #202020;
+    background-color: #081B26;
     
 }
 
@@ -13,6 +14,10 @@ table {
     color:#fff;
     width: 80%;
 
+}
+
+i {
+    color: #518C8C;
 }
 
 tr {
@@ -33,11 +38,11 @@ i {
 
 .border-left {
     
-    border-left: 1px solid #0b9ba5;
+    border-left: 1px solid #C1D4D9;
 }
 
 .border-bottom {
-    border-bottom: 1px solid #0b9ba5;
+    border-bottom: 1px solid #C1D4D9;
 
 }
 
@@ -68,27 +73,17 @@ i {
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-around;
+
 }
 
-.fa-instagram {
-    color: #4c68d7;
+li i, li p {
+    margin-bottom: 20px;
 }
 
-.fa-facebook-official {
-    color: #3b5998;
-}
-
-.fa-paypal {
-    color: #3b7bbf;
-}
-
-.fa-credit-card-alt {
-    color: #008080;
-}
 
 .fa-plane {
     font-size: 60px;
-    background-image: linear-gradient(to right, #0349b3, #5a89cf);
+    background-color: #518C8C;
     letter-spacing: 2px;
     color: transparent;
     background-clip: text;
@@ -99,7 +94,7 @@ i {
     font-size: 40px;
     text-transform: uppercase;
     font-weight: 700;
-    background-image: linear-gradient(to right, #0349b3, #5a89cf);
+    background-color: #518C8C;
     letter-spacing: 2px;
     color: transparent;
     background-clip: text;
@@ -108,7 +103,6 @@ i {
 }
 
 .links {
-	width: 100%;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -119,3 +113,77 @@ i {
     color: #fff;
 }
 
+/*------------Media Queries ---------------------*/
+
+
+@media screen and (max-width: 990px){
+
+    table {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+
+    table tr {
+        width: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    table tr th {
+        height: 200px;
+        width: 90%;
+        border-bottom: 1px solid #C1D4D9;
+    }
+
+    .display-flex .fa {
+        display: none;
+    }
+
+    .border-left {
+    
+        border-left: none;
+    }
+    
+    .border-bottom {
+        border-bottom: none;
+    
+    }
+
+
+}
+
+@media screen and (max-width: 700px){
+
+    .links, .display-flex {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    li i, li p {
+        margin-bottom: 0px;
+        
+    }
+    
+}
+
+@media screen and (max-width: 500px){
+    
+    h5 {
+        font-size: 20px;
+    }
+    
+    p, li a {
+        font-size: 14px;
+    }
+    li i, li p {
+        margin-bottom: 6px;
+        
+    }
+    
+}

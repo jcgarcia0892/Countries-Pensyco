@@ -37,6 +37,8 @@ color: #fff;
     padding: 10px 0;
 }
 
+
+
 .forma {
     display: flex;
     flex-direction: row;
@@ -88,7 +90,7 @@ color: #fff;
     background-color: #fff;
     color: #000;
     border-radius: 20px ;
-	border: 1px solid #fff;
+	border: 1px solid #C1D4D9;
     cursor: pointer;
     
 }
@@ -164,7 +166,7 @@ color: #fff;
 }
 
 .package-card {
-	border: 1px solid #0b9ba5;
+	border: 1px solid #C1D4D9;
 	border-radius: 5px;
 	width: 30%;
 	margin-bottom: 25px;
@@ -223,10 +225,19 @@ color: #fff;
 
 .includes {
     font-size: 16px;
-    letter-spacing: 5px;
+    letter-spacing: 2px;
     font-weight: 700;
-    height: 100px;
-    margin-bottom: 15px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.rating-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-size: 16px;
+    letter-spacing: 2px;
+    font-weight: 700;
 }
 
 .package-features {
@@ -237,7 +248,7 @@ color: #fff;
 }
 
 .package-features > * {
-    border-bottom: 1px solid #0b9ba5;
+    border-bottom: 1px solid #C1D4D9;
     text-align: center;
     padding-bottom: 10px;
     margin-bottom: 20px;
@@ -281,7 +292,7 @@ color: #fff;
     background-color: #fff;
     color: #000;
     border-radius: 20px ;
-    border: 1px solid #fff;
+    border: 1px solid #C1D4D9;
     transition: all .6s ease;
 }
 
@@ -327,5 +338,12 @@ color: #fff;
 
     .includes {
         height: 70px;
+        font-size: 20px;;
+    }
+}
+
+@media screen and (max-width: 400px){
+    h3 {
+        font-size: 24px;
     }
 }

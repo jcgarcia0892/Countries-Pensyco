@@ -1,26 +1,29 @@
 <main class="container">
 	<div class="forma-box">
+		<h3>Choose a date for your journey</h3>
 		<form [formGroup]="forma" class="forma" (ngSubmit)="book()">
 			<div class="forma-text">
-				<small [class.is-invalid]="arrivedInvalid">Arrived</small>
+				<small>Arrived</small>
 				<input 	matInput [matDatepicker]="arrived"
 						[min]="minDateArrived"
 						disabled
+						placeholder="MM/DD/YYY"
 						formControlName="arrived">
 				<mat-datepicker-toggle matSuffix [for]="arrived"></mat-datepicker-toggle>
 				<mat-datepicker #arrived disabled="false"></mat-datepicker>
 			</div>
 	
 			<div class="forma-text">
-				<small [class.is-invalid]="departedInvalid">Departed</small>
+				<small>Departed</small>
 				<input 	matInput [matDatepicker]="departed"
 						[min]="minDateArrived"
 						disabled
+						placeholder="MM/DD/YYY"
 						formControlName="departed">
 				<mat-datepicker-toggle matSuffix [for]="departed"></mat-datepicker-toggle>
 				<mat-datepicker #departed disabled="false"></mat-datepicker>
-				
 			</div>
+			
 
 			<div class="forma-text forma-button-box">
 				<small>Guest</small>
@@ -36,6 +39,10 @@
 				<button class="forma-button"type="submit">
 					<i class="fa fa-search" aria-hidden="true"></i>
 				</button>
+			</div>
+
+			<div class="forma-error" *ngIf="departedInvalid || arrivedInvalid">
+				<small class="is-invalid">Please choose the date of your journey</small>
 			</div>
 
 			<div class="forma-error" *ngIf="errors">
@@ -56,15 +63,16 @@
 					</div>
 					<div class="package-content">
 						<p class="includes">Address: {{hotel.adress}}</p>
+						<div class="rating-box">
+							<p>Guest: {{person}} </p>
+							<p>Rating: {{hotel.qualification}}</p>
+						</div>
+						<p>Features: </p>
 						<ul class="package-features">
 							<li>Swimming Pool</li>
-							<li class="hotel-feature">
-								<i class="hotel-feature-icon fa fa-wifi" aria-hidden="true"></i>
-								<i class="hotel-feature-icon fa fa-television" aria-hidden="true"></i>
-								<i class="hotel-feature-icon fa fa-futbol-o" aria-hidden="true"></i>
-							</li>
-							<li>Rating: {{hotel.qualification}}</li>
+							<li class="hotel-feature">Wifi</li>
 							<li>Restaurant</li>
+							<li>Breakfast</li>
 						</ul>
 						<div class="package-price">
 							<p class="price">{{hotel.price | currency }}</p>

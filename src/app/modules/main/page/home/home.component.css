@@ -16,13 +16,11 @@
 
 .menu {
 	width: 100%;
+	height: 100vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+	justify-content: center;
 }
 
 .menu > * {
@@ -35,7 +33,7 @@
 	content: '';
 	position: absolute;
 	display: block;
-	background: #0b9ba5;
+	background: #C1D4D9;
 	height: 50px;
 	width: 1px;
 	left: 50%;
@@ -47,9 +45,15 @@
 }
 
 .container .logo{
-	border-radius: 100%;
-	border: 1px solid #0b9ba5;
-	padding: 15px 15px 15px 20px;
+	border: 1px solid #C1D4D9;
+	border-radius: 100px;
+	width: 120px;
+	height: 120px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
 	animation: appear 0.5s ease;
 	animation-delay: 0.5s;
 }
@@ -59,49 +63,59 @@
 }
 
 .container .logo i{
-	font-size: 24px;
+	font-size: 48px;
 	color: #fff;
 }
 
 .container .content {
-	max-width: 60%;
+	width: 55%;
 	border-style: solid;
 	border-top-width: 1px;
-	border-top-color: #0b9ba5;
+	border-top-color: #C1D4D9;
 	border-bottom-width: 1px;
-	border-bottom-color: #0b9ba5;
+	border-bottom-color: #C1D4D9;
 	animation: movement 0.5s ease;
-	height: 150px;
+	height: 300px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
 }
 
 .container .content .inner{
-	margin: auto 0;
 	color: #fff;
+	text-align: center;
 	animation: appear 0.5s ease;
 	animation-delay: 0.5s;
 }
 
 .container .content .inner h1{
 	line-height: 10px;
-	font-size: 30px;
+	font-size: 32px;
 	letter-spacing: 2px;
-	margin-bottom: 20px;
+	margin: 40px 0;
+	text-transform: uppercase;
 }
 .container .content .inner p{
-	text-align: justify;
+	text-align: center;
 	letter-spacing: 1px;
+	font-size: 20px;
+
+
+}
+
+.container .nav {
+	max-width: 85%;
 
 }
 
 .container .nav .list {
 	display: flex;
 	margin-bottom: 0;
-	border: solid 1px #0b9ba5;
+	border: solid 1px #C1D4D9;
 	border-radius: 4px;
 	padding: 0px;
+
 }
 
 .container .nav li {
@@ -110,6 +124,7 @@
 
 .container .nav a{
 	color: #fff;
+	width: 100%;
 	display: inline-block;
 	padding: 15px 20px;
 
@@ -126,7 +141,7 @@
 
 @keyframes movement {
 	0%{ height: 0px; margin-top: 150px;    }
-	100%{ height: 150px; margin-top: 50px;   }
+	100%{ height: 300px; margin-top: 50px;   }
 }
 
 @keyframes appear {
@@ -136,8 +151,64 @@
 
 /*------------ MEDIAQUERIES -------------*/
 
-@media screen and (max-width: 500px){
+
+@media screen and (max-width: 700px){
+	
 	.container .content {
-		height: 200px;
+		width: 70%;
 	}
+}
+
+@media screen and (max-width: 500px){
+	
+	.container .logo{
+		width: 100px;
+		height: 100px;
+	}
+	
+	.container .logo i{
+		font-size: 36px;	
+	}
+
+	.container .content {
+		width: 80%;
+	}
+
+	.container .nav .list {
+		flex-direction: column;
+	}
+}
+
+
+@media screen and (max-width: 380px){
+
+	.container .logo{
+		width: 80px;
+		height: 80px;
+	}
+	
+	.container .logo i{
+		font-size: 28px;	
+	}
+
+	.container .content {
+		width: 85%;
+	}
+
+	.container .content .inner h1{
+		font-size: 24px;
+	}	
+	.container .content .inner p{
+		font-size: 16px;
+	}
+	.container .nav a{
+		font-size: 14px;
+	}
+
+
+
+.container .nav .list li:not(:last-child){
+	border-bottom: 1px solid #C1D4D9;
+}
+		
 }
