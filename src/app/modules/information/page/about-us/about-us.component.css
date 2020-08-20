@@ -43,6 +43,7 @@ p {
 	flex-direction: column;
 	flex-wrap: wrap;
 	justify-content: center;
+	max-width: 1300px;
 	width: 90%;
 	position: relative;
 	margin: 0 auto;

@@ -19,6 +19,7 @@ h3 {
     flex-wrap: wrap;
     justify-content: center;
     width: 90%;
+    max-width: 1300px;
     position: relative;
     margin: 0 auto;
     background-color: rgba(0,0,0,.8);
@@ -306,7 +307,7 @@ small {
     border: 1px solid #C1D4D9;
     text-align: center;
     color: #fff;
-    padding: 40px 0;
+    padding: 40px;
 }
 
 .thanks h5 {
@@ -322,7 +323,7 @@ small {
 .check-icon {
     font-size: 144px;
     margin-bottom: 15px;
-    color: #0b9ba5;
+    color: #518C8C;
 }
 
 /*---------------Media Queries-----------------*/
@@ -403,6 +404,44 @@ small {
     .shopping-car-composition {
         display: none;
     }
+
+    .thanks, .error {
+        width: 90%;
+        padding: 30px;
+    }
+    
+    .thanks h5 {
+        font-size: 24px;
+    }
+    
+    .thanks p, .error-text {
+        font-size: 16px;
+    }
+    
+    .check-icon, .error-icon {
+        font-size: 96px;
+    }
+
+  
+}
+
+@media screen and (max-width: 560px){
+    .thanks {
+        padding: 15px;
+    }
+    
+    .thanks h5 {
+        font-size: 20px;
+    }
+    
+    .thanks p {
+        font-size: 14px;
+    }
+    
+    .check-icon {
+        font-size: 96px;
+    }
+
 }
 
 @media screen and (max-width: 460px){
@@ -410,6 +449,11 @@ small {
     table th[data-titulo] {
         margin-bottom: 30px;
 
+    }
+
+    .btn-responsive {
+        width: 80%;
+        font-size: 14px;
     }
     
    

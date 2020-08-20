@@ -52,6 +52,7 @@
                     <label for="name">Name</label>
                     <input  type="text"
                             class="text"
+                            maxlength="15"
                             formControlName="name"
                             placeholder="Name">
                     <small class="shopping-input-error"
@@ -61,6 +62,7 @@
                     <label for="lastName">Last Name</label>
                     <input  type="text"
                             class="text"
+                            maxlength="15"
                             formControlName="lastName"
                             placeholder="Last Name">
                     <small class="shopping-input-error"
@@ -70,6 +72,7 @@
                     <label for="email">Email</label>
                     <input  type="email"
                             class="text"
+                            maxlength="30"
                             formControlName="email"
                             placeholder="email">
                     <small class="shopping-input-error"
@@ -245,14 +248,14 @@
     <section class="error" *ngIf="shoppingCarArr.length === 0">
         <i class="fa fa-exclamation-circle error-icon" aria-hidden="true"></i>
         <p class="error-text">You haven't choosed any package yet</p>
-        <a [routerLink]="['/information/destinations']" class="btn btn-white">Go to Destinations</a>
+        <a [routerLink]="['/information/destinations']" class="btn btn-white btn-responsive">Go to Destinations</a>
     </section>
 
     <section class="thanks" *ngIf="thanks">
         <i class="fa fa-check-circle-o check-icon" aria-hidden="true"></i>
         <h5>Thank you for buying with us!</h5>
         <p>There's a lot of choices there but you singled us out and that means a lot. We just want to express how much we appreciate your choice. When you're looking for something truly special, we hope that we'll continue to be the place you think first.</p>
-        <a [routerLink]="['/main/home']" class="btn btn-white" (click)="emptyArr()">Go to Home</a>
+        <a [routerLink]="['/main/home']" class="btn btn-white btn-responsive" (click)="emptyArr()">Go to Home</a>
     </section>
     
 

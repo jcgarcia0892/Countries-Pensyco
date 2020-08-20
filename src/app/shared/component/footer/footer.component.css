@@ -33,7 +33,7 @@ h5 {
 
 i {
     font-size: 38px;
-    cursor: pointer;
+    cursor: default;
 }
 
 .border-left {
@@ -111,6 +111,12 @@ li i, li p {
 
 .link {
     color: #fff;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.link:hover {
+    color: #C1D4D9;
 }
 
 /*------------Media Queries ---------------------*/

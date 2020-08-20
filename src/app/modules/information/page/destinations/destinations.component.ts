@@ -30,12 +30,11 @@ export class DestinationsComponent implements OnInit {
 
     let destinationsArr:any[] = [];
     word = word.toLowerCase();
-    this.showEmpty = false;
     this.showMisspell = false;
 
     if(word.length === 0){
-
-      this.showEmpty = true;
+      this.showMisspell = false;
+      this.destinations = this.countriesService.getDestinations();
   
     }else{
 
@@ -48,10 +47,7 @@ export class DestinationsComponent implements OnInit {
       
         this.showMisspell = true;
         this.showEmpty = false;
-
-      
       }
-
 
     }
   }

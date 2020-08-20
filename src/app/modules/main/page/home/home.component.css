@@ -54,6 +54,7 @@
 	align-items: center;
 	justify-content: center;
 	flex-wrap: wrap;
+	margin-top: 0;
 	animation: appear 0.5s ease;
 	animation-delay: 0.5s;
 }
@@ -90,10 +91,8 @@
 }
 
 .container .content .inner h1{
-	line-height: 10px;
 	font-size: 32px;
 	letter-spacing: 2px;
-	margin: 40px 0;
 	text-transform: uppercase;
 }
 .container .content .inner p{
