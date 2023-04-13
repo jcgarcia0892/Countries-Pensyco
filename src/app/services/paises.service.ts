@@ -395,7 +395,7 @@ export class PaisesService {
 
 	cargarStorage(){
 		if( localStorage.getItem('data') ){
-			this.shoppingItemsArr = JSON.parse(localStorage.getItem('data'));
+			this.shoppingItemsArr = JSON.parse(localStorage.getItem('data') as string);
 		}
 	}
 

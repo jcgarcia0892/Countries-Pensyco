@@ -12,7 +12,7 @@ export class InformationLayoutComponent implements OnInit {
   ngOnInit() {
   }
 
-  onActivate(event){
+  onActivate(event: any){
     window.scroll(0,0);
   }
 

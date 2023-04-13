@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PaisesService } from 'src/app/services/paises.service';
 
@@ -9,18 +10,18 @@ import { PaisesService } from 'src/app/services/paises.service';
   styleUrls: ['./shopping-car.component.css']
 })
 export class ShoppingCarComponent implements OnInit {
-  forma:FormGroup;
-  formaDebit:FormGroup;
-  formaCredit:FormGroup;
-  debitValid:boolean;
-  creditValid:boolean;
-  totalPrice:number;
-  shoppingCarArr = [];
-  thanks:boolean;
+  forma!:UntypedFormGroup;
+  formaDebit!:UntypedFormGroup;
+  formaCredit!:UntypedFormGroup;
+  debitValid!:boolean;
+  creditValid!:boolean;
+  totalPrice!:number;
+  shoppingCarArr: any = [];
+  thanks!:boolean;
 
 
   constructor(  private countriesService:PaisesService,
-                private fb:FormBuilder,
+                private fb:UntypedFormBuilder,
                 private router:Router) {
 
 
@@ -35,7 +36,6 @@ export class ShoppingCarComponent implements OnInit {
     this.createFormDebit();
     this.createFormCredit();
     this.totalPriceFunction();
-    console.log(this.shoppingCarArr);
 
   }
 
@@ -60,23 +60,23 @@ export class ShoppingCarComponent implements OnInit {
   }
 
   get nameInvalid(){
-    return this.forma.get('name').invalid && this.forma.get('name').touched;
+    return this.forma.get('name')?.invalid && this.forma.get('name')?.touched;
   }
 
   get lastNameInvalid(){
-    return this.forma.get('lastName').invalid && this.forma.get('lastName').touched;
+    return this.forma.get('lastName')?.invalid && this.forma.get('lastName')?.touched;
   }
 
   get paymentInvalid(){
-    return this.forma.get('payment').invalid && this.forma.get('payment').touched;
+    return this.forma.get('payment')?.invalid && this.forma.get('payment')?.touched;
   }
 
   get emailInvalid(){
-    return this.forma.get('email').invalid && this.forma.get('email').touched;
+    return this.forma.get('email')?.invalid && this.forma.get('email')?.touched;
   }
 
   get confirmEmailInvalid(){
-    return this.forma.get('confirmEmail').invalid && this.forma.get('confirmEmail').touched;
+    return this.forma.get('confirmEmail')?.invalid && this.forma.get('confirmEmail')?.touched;
   }
   
   get paymentDebit(){
@@ -92,29 +92,29 @@ export class ShoppingCarComponent implements OnInit {
   /*---------- formulario de la tarjeta de debito ---------*/
 
   get bankInvalid(){
-    return this.formaDebit.get('bank').invalid && this.formaDebit.get('bank').touched;
+    return this.formaDebit.get('bank')?.invalid && this.formaDebit.get('bank')?.touched;
   }
 
   get passwordInvalid(){
-    return this.formaDebit.get('password').invalid && this.formaDebit.get('password').touched;
+    return this.formaDebit.get('password')?.invalid && this.formaDebit.get('password')?.touched;
   }
 
     /*---------- formulario de la tarjeta de credito ---------*/
 
   get creditNumberInvalid(){
-    return this.formaCredit.get('creditCardNumber').invalid && this.formaCredit.get('creditCardNumber').touched;
+    return this.formaCredit.get('creditCardNumber')?.invalid && this.formaCredit.get('creditCardNumber')?.touched;
   }
   
   get creditMonthInvalid(){
-    return this.formaCredit.get('creditCardMonth').invalid && this.formaCredit.get('creditCardMonth').touched;
+    return this.formaCredit.get('creditCardMonth')?.invalid && this.formaCredit.get('creditCardMonth')?.touched;
   }
 
   get creditYearInvalid(){
-    return this.formaCredit.get('creditCardYear').invalid && this.formaCredit.get('creditCardYear').touched;
+    return this.formaCredit.get('creditCardYear')?.invalid && this.formaCredit.get('creditCardYear')?.touched;
   }
 
   get creditCodeInvalid(){
-     return this.formaCredit.get('creditCardCode').invalid && this.formaCredit.get('creditCardCode').touched;
+     return this.formaCredit.get('creditCardCode')?.invalid && this.formaCredit.get('creditCardCode')?.touched;
   }
 
 /*----------------------------------------------------------------*/
@@ -157,7 +157,7 @@ export class ShoppingCarComponent implements OnInit {
 
     
     if(this.forma.invalid){
-      Object.values( this.forma.controls ).forEach(control => {
+      Object.values( this.forma.controls ).forEach((control: AbstractControl) => {
         control.markAsTouched();
       })
     } 
@@ -165,11 +165,11 @@ export class ShoppingCarComponent implements OnInit {
     if(this.forma.status === 'VALID' && (this.formaCredit.status === 'VALID' || this.formaDebit.status === 'VALID')){
       this.thanks = true;
     }else{
-      Object.values(this.formaCredit.controls).forEach(control => {
+      Object.values(this.formaCredit.controls).forEach((control: AbstractControl) => {
         control.markAsTouched();
       })
 
-      Object.values(this.formaDebit.controls).forEach(control => {
+      Object.values(this.formaDebit.controls).forEach((control: AbstractControl) => {
         control.markAsTouched();
       })
     }
@@ -178,7 +178,7 @@ export class ShoppingCarComponent implements OnInit {
   validDebit(){
     console.log(this.formaDebit);
     if(this.formaDebit.invalid){
-      return Object.values( this.formaDebit.controls ).forEach(control => {
+      return Object.values( this.formaDebit.controls ).forEach((control: AbstractControl) => {
         control.markAsTouched();
       })
     }else{
@@ -190,7 +190,7 @@ export class ShoppingCarComponent implements OnInit {
   validCredit(){
     if(this.formaCredit.invalid){
 
-      return Object.values( this.formaCredit.controls ).forEach(control => {
+      return Object.values( this.formaCredit.controls ).forEach((control: AbstractControl) => {
         control.markAsTouched();
       })
     }else{
@@ -199,8 +199,8 @@ export class ShoppingCarComponent implements OnInit {
     }
   }
 
-  sameEmail(email, confirmEmail){
-    return (formGroup: FormGroup)=> {
+  sameEmail(email: any, confirmEmail: any){
+    return (formGroup: UntypedFormGroup)=> {
       const email1 = formGroup.controls['email']; 
       const email2 = formGroup.controls['confirmEmail'];
 
@@ -213,7 +213,7 @@ export class ShoppingCarComponent implements OnInit {
     }
   }
 
-  typeNumberFunction(control:FormControl):{[s:string]:boolean}{
+  typeNumberFunction(control:UntypedFormControl):{[s:string]:boolean} | null{
     
     let codeNumber = control.value;
     
@@ -225,7 +225,7 @@ export class ShoppingCarComponent implements OnInit {
 
     }
 
-    return null
+    return null;
 
   }
 

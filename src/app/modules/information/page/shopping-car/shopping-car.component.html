@@ -25,7 +25,7 @@
                         <th data-titulo="Date"> {{item.date1 | date:'shortDate'}} - {{item.date2 | date:'shortDate'}} </th>
                         <th data-titulo="Guest(s)"> {{item.person}} </th>
                         <th data-titulo="Price/unit"> {{item.price | currency}} </th>
-                        <th data-titulo="Price/journey"> {{item.price * item.person | currency}} </th>
+                        <th data-titulo="Price/journey"> {{item?.price * item?.person | currency}} </th>
                         <th data-titulo="Remove">
                             <button (click)="removeItem(i)" class="shopping-table-remove">
                                 <i class="fa fa-times" aria-hidden="true"></i>

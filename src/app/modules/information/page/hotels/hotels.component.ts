@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaisesService } from './../../../../services/paises.service';
+import { AbstractControl } from '@angular/forms';
 
 
 
@@ -12,23 +13,23 @@ import { PaisesService } from './../../../../services/paises.service';
   styleUrls: ['./hotels.component.css']
 })
 export class HotelsComponent implements OnInit {
-  country:any;
+  country!:any;
   destination:any = {};
-  minDateArrived:Date;
-  minDateDepartured:Date;
-  forma: FormGroup;
-  showHotels:boolean;
-  errors:boolean;
-  person:number;
-  dateArrived:string;
-  dateDeparted:string;
+  minDateArrived!:Date;
+  minDateDepartured!:Date;
+  forma!: UntypedFormGroup;
+  showHotels!:boolean;
+  errors!:boolean;
+  person!:number;
+  dateArrived!:string;
+  dateDeparted!:string;
 
 
 
  	 constructor(	private acRoute:ActivatedRoute,
   				      private CountriesService:PaisesService,
                 private router:Router,
-                private fb:FormBuilder) {
+                private fb:UntypedFormBuilder) {
     
     this.errors = false;
     this.showHotels = false;
@@ -42,7 +43,7 @@ export class HotelsComponent implements OnInit {
 
   ngOnInit() {
    
-    this.acRoute.params.subscribe( (data) =>{
+    this.acRoute.params.subscribe( (data: any) =>{
       this.destination = this.CountriesService.getDestination(data['name']);
       
     });
@@ -51,20 +52,20 @@ export class HotelsComponent implements OnInit {
   }
 
 
-  addPerson(){
+  addPerson(): any{
     if(this.person < 51){
       return this.person++;
     }
   }
 
-  sustPerson(){
+  sustPerson(): any{
 
     if(this.person > 1){
       return this.person--;
     }
   }
 
-  shoppingCar(hotel, person, dateArrived, dateDeparted){
+  shoppingCar(hotel: any, person: any, dateArrived: any, dateDeparted: any){
 
     this.CountriesService.shoppingCar(hotel, person, dateArrived, dateDeparted);
     
@@ -73,11 +74,11 @@ export class HotelsComponent implements OnInit {
   /*-------forma-date --------------*/
    
   get arrivedInvalid(){
-    return this.forma.get('arrived').invalid && this.forma.get('arrived').touched;
+    return this.forma.get('arrived')?.invalid && this.forma.get('arrived')?.touched;
   }
 
   get departedInvalid(){
-    return this.forma.get('departed').invalid && this.forma.get('departed').touched;
+    return this.forma.get('departed')?.invalid && this.forma.get('departed')?.touched;
   }
 
 
@@ -88,11 +89,11 @@ export class HotelsComponent implements OnInit {
     });
   }
 
-  book(){
+  book(): any{
     
-    Object.values(this.forma.controls).forEach(control => {
+    Object.values(this.forma.controls).forEach((control: AbstractControl) => {
       return control.markAsTouched();
-    })
+    });
     
     this.dateArrived = this.forma.controls['arrived'].value;
     this.dateDeparted = this.forma.controls['departed'].value;

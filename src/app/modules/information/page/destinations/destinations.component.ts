@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 })
 export class DestinationsComponent implements OnInit {
 
-  showEmpty:boolean;
-  showMisspell:boolean;
+  showEmpty!: boolean;
+  showMisspell!: boolean;
   destinations:any = [];
 
   constructor(	private countriesService:PaisesService,
@@ -26,7 +26,7 @@ export class DestinationsComponent implements OnInit {
   }
   
 
-  searchDestination(word){
+  searchDestination(word: string){
 
     let destinationsArr:any[] = [];
     word = word.toLowerCase();
@@ -38,7 +38,7 @@ export class DestinationsComponent implements OnInit {
   
     }else{
 
-      this.destinations = this.destinations.filter(destination => {
+      this.destinations = this.destinations.filter((destination: any) => {
         let name = destination.city.toLowerCase();
         return name.indexOf(word) >= 0;
       })
