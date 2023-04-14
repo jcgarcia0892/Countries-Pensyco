@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PaisesService } from './../../../../services/paises.service';
+import { FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { CountriesService } from '../../../../services/countries.service';
 import { AbstractControl } from '@angular/forms';
-
-
-
+import { Destination, Hotel } from 'src/app/shared/interfaces/destination.interface';
+import { DateForm } from 'src/app/shared/interfaces/date-form.interface';
 
 @Component({
   selector: 'app-hotels',
@@ -13,44 +12,37 @@ import { AbstractControl } from '@angular/forms';
   styleUrls: ['./hotels.component.css']
 })
 export class HotelsComponent implements OnInit {
-  country!:any;
-  destination:any = {};
-  minDateArrived!:Date;
-  minDateDepartured!:Date;
-  forma!: UntypedFormGroup;
-  showHotels!:boolean;
-  errors!:boolean;
-  person!:number;
-  dateArrived!:string;
-  dateDeparted!:string;
+  
+  destination!: Destination | undefined;
+  
+  minDateArrived = new Date();
+  
+  minDateDepartured = new Date();
+  
+  showHotels = false;
+  
+  errors = false;
+  
+  person = 1;
+  
+  dateArrived!: Date;
+  
+  dateDeparted!: Date;
 
-
+  forma: FormGroup<DateForm> = this.fb.group({
+    arrived: [null,[Validators.required]],
+    departed: [null, [Validators.required]]
+  });
 
  	 constructor(	private acRoute:ActivatedRoute,
-  				      private CountriesService:PaisesService,
-                private router:Router,
-                private fb:UntypedFormBuilder) {
-    
-    this.errors = false;
-    this.showHotels = false;
-    this.schedule();
-    this.minDateArrived = new Date();
-    this.minDateDepartured = new Date();
-    this.person = 1;
-    
-
-   }
+  				      private countriesService: CountriesService,
+                private fb: UntypedFormBuilder) {}
 
   ngOnInit() {
-   
-    this.acRoute.params.subscribe( (data: any) =>{
-      this.destination = this.CountriesService.getDestination(data['name']);
-      
+    this.acRoute.params.subscribe( (data) =>{
+      this.destination = this.countriesService.getDestination(data['name']);
     });
-
-
   }
-
 
   addPerson(): any{
     if(this.person < 51){
@@ -58,58 +50,46 @@ export class HotelsComponent implements OnInit {
     }
   }
 
-  sustPerson(): any{
-
+  removePerson(): any{
     if(this.person > 1){
       return this.person--;
     }
   }
 
-  shoppingCar(hotel: any, person: any, dateArrived: any, dateDeparted: any){
-
-    this.CountriesService.shoppingCar(hotel, person, dateArrived, dateDeparted);
+  shoppingCar(hotel: Hotel, person: number, dateArrived: Date, dateDeparted: Date){
+    this.countriesService.shoppingCar(hotel, person, dateArrived, dateDeparted);
     
   }
 
-  /*-------forma-date --------------*/
-   
-  get arrivedInvalid(){
-    return this.forma.get('arrived')?.invalid && this.forma.get('arrived')?.touched;
-  }
-
-  get departedInvalid(){
-    return this.forma.get('departed')?.invalid && this.forma.get('departed')?.touched;
-  }
-
-
-  schedule(){
-    this.forma = this.fb.group({
-      arrived: ['',[Validators.required]],
-      departed: ['', [Validators.required]]
-    });
-  }
-
-  book(): any{
-    
+  book(): void {
     Object.values(this.forma.controls).forEach((control: AbstractControl) => {
       return control.markAsTouched();
     });
     
-    this.dateArrived = this.forma.controls['arrived'].value;
-    this.dateDeparted = this.forma.controls['departed'].value;
+    this.dateArrived = this.forma.controls.arrived.value;
+    this.dateDeparted = this.forma.controls.departed.value;
     
     
     if(this.dateArrived > this.dateDeparted){
       this.showHotels = false;
-      
-      return this.errors = true;
+      this.errors = true;
     }
     
-    if(this.forma.status === "VALID"){
+    if(this.forma.valid){
       this.errors = false;
       this.showHotels = true;
     }
   }
+
+    /*-------forma-date --------------*/
+   
+    get arrivedInvalid(){
+      return this.forma.controls.arrived?.invalid && this.forma.controls.arrived?.touched;
+    }
+  
+    get departedInvalid(){
+      return this.forma.controls.departed?.invalid && this.forma.controls.departed?.touched;
+    }
 
 }
 

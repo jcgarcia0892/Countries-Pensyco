@@ -1,19 +1,15 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import { Observable } from 'rxjs';
-
+import { Destination, Hotel } from '../shared/interfaces/destination.interface';
 
 
 @Injectable({
   providedIn: 'root'
 })
+export class CountriesService {
+	shoppingItem!: Hotel;
+	shoppingItemsArr: Hotel[] = [];
 
-
-export class PaisesService {
-	shoppingItem:any;
-	shoppingItemsArr:any = [];
-
-	destinations: any = [
+	destinations: Destination[] = [
 		{
 			city: 'Miami',
 			img: './../../../../../assets/img/destination-miami/destination-miami.jpg',
@@ -338,62 +334,51 @@ export class PaisesService {
 			}]
 		}
 	];
-	constructor(	private http:HttpClient){
-		
-        this.cargarStorage();
 
+	constructor(){	
+    	this.cargarStorage();
   	}
 
-	getDestinations(){
+	getDestinations(): Destination[] {
 		return this.destinations;
 	}
 
-	getDestination(name:string){
-		let destinationObj = {};
-		for(let destination of this.destinations){
-			if(destination.city === name){
-				destinationObj = destination;
-			}
-
-		}
-
-		return destinationObj;
+	getDestination(name:string): Destination | undefined {
+		return this.destinations.find((destination) => destination.city === name);
 	}
 
-	shoppingCar(item:any, person:number, dateArrived:string, dateDeparted:string){
+	shoppingCar(item: Hotel, person: number, dateArrived: Date, dateDeparted: Date): void {
 		this.shoppingItem = item;
+
 		this.shoppingItem.person = person;
 
-	
-
 		this.shoppingItem.date1 = dateArrived;
+
 		this.shoppingItem.date2 = dateDeparted;
 
 		if(this.shoppingItem !== undefined){
-			this.shoppingItemsArr.push(this.shoppingItem);
-	
+			this.shoppingItemsArr.push(this.shoppingItem);	
 		}
+		
 		this.guardarStorage();
-
-
 	}
 	
-	getShoppingItem(){
+	getShoppingItem(): Hotel[] {
 		return this.shoppingItemsArr;
 	}
 
-	removeItem(index:number){
+	removeItem(index:number): Hotel[] {
 		this.shoppingItemsArr.splice(index, 1);
 		this.guardarStorage();
 		return this.shoppingItemsArr;
 
 	}
 
-	guardarStorage(){
+	guardarStorage(): void {
 		localStorage.setItem('data', JSON.stringify(this.shoppingItemsArr));
 	}
 
-	cargarStorage(){
+	cargarStorage(): void {
 		if( localStorage.getItem('data') ){
 			this.shoppingItemsArr = JSON.parse(localStorage.getItem('data') as string);
 		}

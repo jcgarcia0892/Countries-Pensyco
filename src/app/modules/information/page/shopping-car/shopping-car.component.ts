@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { PaisesService } from 'src/app/services/paises.service';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { CountriesService } from 'src/app/services/countries.service';
+import { CreditCardform, DebitCardForm } from 'src/app/shared/interfaces/card-form.interface';
+import { Hotel } from 'src/app/shared/interfaces/destination.interface';
+import { UserPaymentForm } from 'src/app/shared/interfaces/user-payment-form.interface';
 
 @Component({
   selector: 'app-shopping-car',
@@ -10,45 +12,39 @@ import { PaisesService } from 'src/app/services/paises.service';
   styleUrls: ['./shopping-car.component.css']
 })
 export class ShoppingCarComponent implements OnInit {
-  forma!:UntypedFormGroup;
-  formaDebit!:UntypedFormGroup;
-  formaCredit!:UntypedFormGroup;
-  debitValid!:boolean;
-  creditValid!:boolean;
-  totalPrice!:number;
-  shoppingCarArr: any = [];
-  thanks!:boolean;
+  
+  forma!:FormGroup<UserPaymentForm>;
+  
+  formaDebit!: FormGroup<DebitCardForm>;
+  
+  formaCredit!: FormGroup<CreditCardform>;
+  
+  debitValid = false;
+  
+  creditValid = false;
+  
+  totalPrice = 0;
+  
+  shoppingCarArr: Hotel[] = [];
+  
+  showThanks = false;
 
 
-  constructor(  private countriesService:PaisesService,
-                private fb:UntypedFormBuilder,
-                private router:Router) {
+  constructor(  private countriesService: CountriesService,
+                private fb:UntypedFormBuilder,) {}
 
-
-    this.totalPrice = 0;
-    this.debitValid = false;
-    this.creditValid = false;
+  ngOnInit() {
     this.shoppingCarArr = this.countriesService.getShoppingItem();
-    this.thanks = false;
-
-
     this.createForm();
     this.createFormDebit();
     this.createFormCredit();
     this.totalPriceFunction();
-
-  }
-
-  ngOnInit() {
   }
 
   totalPriceFunction(){
-    
     this.totalPrice = 0;
-
     for(let item of this.shoppingCarArr){
-      this.totalPrice += (item['person'] * item['price']);
-      
+      this.totalPrice += (item.person * item.price);
     }
    
     return this.totalPrice;
@@ -127,7 +123,7 @@ export class ShoppingCarComponent implements OnInit {
       confirmEmail: ['', [Validators.required, Validators.email]],
       payment:      ['', [Validators.required]]
     }, {
-      validators: [this.sameEmail('email', 'confirmEmail')]
+      validators: [this.sameEmail],
     });
   }
 
@@ -152,86 +148,68 @@ export class ShoppingCarComponent implements OnInit {
   }
 
 
-  sendInformation(){
-    console.log(this.forma);
-
-    
+  sendInformation(): void {
     if(this.forma.invalid){
-      Object.values( this.forma.controls ).forEach((control: AbstractControl) => {
+      return Object.values( this.forma.controls ).forEach((control: AbstractControl) => {
         control.markAsTouched();
       })
     } 
 
     if(this.forma.status === 'VALID' && (this.formaCredit.status === 'VALID' || this.formaDebit.status === 'VALID')){
-      this.thanks = true;
-    }else{
-      Object.values(this.formaCredit.controls).forEach((control: AbstractControl) => {
-        control.markAsTouched();
-      })
+      this.showThanks = true;
+      return;
+    };
 
-      Object.values(this.formaDebit.controls).forEach((control: AbstractControl) => {
-        control.markAsTouched();
-      })
-    }
+    Object.values(this.formaCredit.controls).forEach((control: AbstractControl) => {
+      control.markAsTouched();
+    })
+
+    Object.values(this.formaDebit.controls).forEach((control: AbstractControl) => {
+      control.markAsTouched();
+    })
   }
 
-  validDebit(){
-    console.log(this.formaDebit);
+  validDebit(): void {
     if(this.formaDebit.invalid){
       return Object.values( this.formaDebit.controls ).forEach((control: AbstractControl) => {
         control.markAsTouched();
       })
-    }else{
-      this.debitValid = true;
-
-    }
+    };
+    this.debitValid = true;
   }
 
-  validCredit(){
+  validCredit(): void {
     if(this.formaCredit.invalid){
-
       return Object.values( this.formaCredit.controls ).forEach((control: AbstractControl) => {
         control.markAsTouched();
       })
+    };
+    this.creditValid = true;
+  }
+
+  sameEmail(formGroup: FormGroup<UserPaymentForm>): void {
+    const email = formGroup.controls.email; 
+    const confirmEmail = formGroup.controls.confirmEmail;
+
+    if(email.value === confirmEmail.value){
+      confirmEmail.setErrors(null);
     }else{
-      this.creditValid = true;
-
+      confirmEmail.setErrors({ differentEmail: true });
     }
   }
 
-  sameEmail(email: any, confirmEmail: any){
-    return (formGroup: UntypedFormGroup)=> {
-      const email1 = formGroup.controls['email']; 
-      const email2 = formGroup.controls['confirmEmail'];
-
-      if(email1.value === email2.value){
-        email2.setErrors(null);
-      }else{
-        email2.setErrors({ differentEmail: true });
-        
-      }
-    }
-  }
-
-  typeNumberFunction(control:UntypedFormControl):{[s:string]:boolean} | null{
-    
+  typeNumberFunction(control: FormControl<string>):{[s:string]:boolean} | null{
     let codeNumber = control.value;
-    
 
-    if(isNaN(codeNumber)){
+    if(isNaN(Number(codeNumber))){
       return {
         codNumber:true
       };
-
     }
-
     return null;
-
   }
 
   emptyArr(){
     this.shoppingCarArr.length = 0;
   }
-
-
 }

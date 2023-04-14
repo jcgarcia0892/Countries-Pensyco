@@ -10,15 +10,22 @@
 
 	<section class="searcher-searcher">
 		
-		<input class="searcher-input" placeholder="Destination" maxlength="20" type="text" (keyup.enter)="searchDestination(destination.value)" #destination>
-		<button class="searcher-button" (click)="searchDestination(destination.value)">
+		<input
+			class="searcher-input"
+			type="text"
+			placeholder="Destination"
+			maxlength="20"
+			[formControl]="destinationControl"
+			(keyup.enter)="searchDestination(destinationControl.value)"
+		/>
+		<button
+			class="searcher-button"
+			(click)="searchDestination(destinationControl.value)">
 			Filter Destination
 		</button>		
 	
-
-	
-		<div class="searcher-error" *ngIf="showMisspell === true">
-			<p class="searcher-error-text">We haven't found the destination: {{destination.value}}</p>
+		<div class="searcher-error" *ngIf="showMisspell">
+			<p class="searcher-error-text">We haven't found the destination: <strong>{{destinationControl.value}}</strong></p>
 		</div>
 	</section>
 
