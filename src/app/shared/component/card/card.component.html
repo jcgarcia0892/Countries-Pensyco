@@ -1,0 +1,18 @@
+
+<div class="package-card__image-container">
+    <img [src]="info.img.src" [alt]="info.img.alt">
+    <h4 class="card-heading">{{info.img.title}}</h4>
+</div>
+<div class="package-card__package-content">
+    <ng-content></ng-content>
+    <div class="actions">
+        <a	[routerLink]="info.actions.route"
+            (click)="cardButtonAction.emit()"
+            class="actions__main">
+            {{info.actions.title}}
+            <ng-container *ngIf="!!info.actions.icon">
+                <i [class]="info.actions.icon" aria-hidden="true"></i>
+            </ng-container>
+        </a>
+    </div>
+</div>
