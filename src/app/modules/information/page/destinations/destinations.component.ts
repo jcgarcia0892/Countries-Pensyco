@@ -7,7 +7,7 @@ import { filter, map } from 'rxjs';
 @Component({
   selector: 'app-destinations',
   templateUrl: './destinations.component.html',
-  styleUrls: ['./destinations.component.css']
+  styleUrls: ['./destinations.component.scss']
 })
 export class DestinationsComponent implements OnInit {
 

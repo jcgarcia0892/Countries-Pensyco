@@ -9,7 +9,7 @@ import { DateForm } from 'src/app/shared/interfaces/date-form.interface';
 @Component({
   selector: 'app-hotels',
   templateUrl: './hotels.component.html',
-  styleUrls: ['./hotels.component.css']
+  styleUrls: ['./hotels.component.scss']
 })
 export class HotelsComponent implements OnInit {
   
