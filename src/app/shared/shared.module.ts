@@ -4,12 +4,14 @@ import { CommonModule } from '@angular/common';
 
 import { FooterComponent } from './component/footer/footer.component';
 import { MenuComponent } from './component/menu/menu.component';
+import { CardComponent } from './component/card/card.component';
 
 
 @NgModule({
     declarations: [
         FooterComponent,
         MenuComponent,
+        CardComponent,
     ],
     imports: [
         RouterModule,
@@ -22,6 +24,7 @@ import { MenuComponent } from './component/menu/menu.component';
         //Components
         FooterComponent,
         MenuComponent,
+        CardComponent,
     ]
 })
 

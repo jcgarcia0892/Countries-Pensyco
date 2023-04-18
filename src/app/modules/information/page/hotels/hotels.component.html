@@ -54,7 +54,28 @@
 		
 		<h3>{{destination?.city}}</h3>
 		<section class="package">
-				<div class="package-card" *ngFor="let hotel of destination?.hotels">
+			<app-card
+				*ngFor="let hotel of destination?.hotels"
+				[info]="getCardInfo(hotel)"
+				(cardButtonAction)="shoppingCar(hotel, person, dateArrived, dateDeparted)">
+				<p class="package__address">Address: {{hotel.adress}}</p>
+				<div class="package__rating">
+					<p>Guest: {{person}} </p>
+					<p>Rating: {{hotel.qualification}}</p>
+				</div>
+				<p>Features: </p>
+				<ul class="package__features">
+					<li>Swimming Pool</li>
+					<li>Wifi</li>
+					<li>Restaurant</li>
+					<li>Breakfast</li>
+				</ul>
+				<div class="package__price">
+					<p class="price">{{hotel.price | currency }}</p>
+					<p>Price/person</p>
+				</div>
+			</app-card>
+				<!-- <div class="package-card" *ngFor="let hotel of destination?.hotels">
 					<div class="image image-normal">
 						<img class="image-box-image" [src]="hotel.img" [alt]="hotel.name">
 						<h4 class="card-heading">{{hotel.name}}</h4>
@@ -85,7 +106,7 @@
 							</a>
 						</div>
 					</div>
-				</div>
+				</div> -->
 		</section>
 	</div>	
 

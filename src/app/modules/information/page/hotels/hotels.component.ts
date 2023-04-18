@@ -5,6 +5,7 @@ import { CountriesService } from '../../../../services/countries.service';
 import { AbstractControl } from '@angular/forms';
 import { Destination, Hotel } from 'src/app/shared/interfaces/destination.interface';
 import { DateForm } from 'src/app/shared/interfaces/date-form.interface';
+import { CardComponentInfo } from 'src/app/shared/interfaces/card-component-info.interface';
 
 @Component({
   selector: 'app-hotels',
@@ -78,6 +79,21 @@ export class HotelsComponent implements OnInit {
     if(this.forma.valid){
       this.errors = false;
       this.showHotels = true;
+    }
+  }
+
+  getCardInfo(hotel: Hotel): CardComponentInfo {
+    return {
+      img: {
+        src: hotel.img,
+        alt: hotel.name,
+        title: hotel.name,
+      },
+      actions: {
+        icon: 'fa fa-shopping-cart',
+        title: 'Add to cart',
+        route: ['/information/shopping',],
+      }
     }
   }
 

@@ -30,22 +30,14 @@
 	</section>
 
 	<section class="destinations">
-		
-		<div class="destinations-city" *ngFor="let destination of destinations">
-			<img class="destinations-city-img" [src]="destination.img" [alt]="destination.city">
-			<div class="destination-city-text-box">
-
-				<h5 class="destinations-city-heading">{{destination.city}}</h5>
-				<p>Touristic places</p>
-				
-				<ul class="package-features">
-					<li *ngFor="let place of destination.places">{{place}}</li>
-				</ul>
-
-				<a [routerLink]="['/information/hotels', destination.city]" class="destinations-city-link">Go to Hotels</a>
+		<app-card *ngFor="let destination of destinations" [info]="getCardInfo(destination)">
+			<h5 class="destinations__heading">{{destination.city}}</h5>
+			<p class="destinations__subtitle">Touristic places</p>
 			
-			</div>
-		</div>
+			<ul class="destinations__content">
+				<li *ngFor="let place of destination.places">{{place}}</li>
+			</ul>
+		</app-card>
 	</section>
 	
 </main>
