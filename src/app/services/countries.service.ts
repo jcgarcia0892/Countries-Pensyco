@@ -250,7 +250,7 @@ export class CountriesService {
 				name: 'URSO Hotel & Spa',
 				adress: 'Madrid, Mejia Lequerica street 8',
 				qualification: '8.5',
-				img: './assets/img/destination-madrid/destination-madrid-hotel- 3.jpg',
+				img: './assets/img/destination-madrid/destination-madrid-hotel-3.jpg',
 				person: 1,
 				price: 251774
 			},
