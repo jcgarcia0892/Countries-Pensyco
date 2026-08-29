@@ -9,7 +9,8 @@ import { UserPaymentForm } from 'src/app/shared/interfaces/user-payment-form.int
 @Component({
   selector: 'app-shopping-car',
   templateUrl: './shopping-car.component.html',
-  styleUrls: ['./shopping-car.component.scss']
+  styleUrls: ['./shopping-car.component.scss'],
+  standalone: false
 })
 export class ShoppingCarComponent implements OnInit {
   

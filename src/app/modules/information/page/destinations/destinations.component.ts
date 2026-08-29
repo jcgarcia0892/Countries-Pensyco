@@ -8,7 +8,8 @@ import { CardComponentInfo } from 'src/app/shared/interfaces/card-component-info
 @Component({
   selector: 'app-destinations',
   templateUrl: './destinations.component.html',
-  styleUrls: ['./destinations.component.scss']
+  styleUrls: ['./destinations.component.scss'],
+  standalone: false
 })
 export class DestinationsComponent implements OnInit {
 

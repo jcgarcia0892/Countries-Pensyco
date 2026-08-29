@@ -9,6 +9,7 @@ import { CardComponentInfo } from '../../interfaces/card-component-info.interfac
     'class': 'package-card'
   },
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class CardComponent {
 

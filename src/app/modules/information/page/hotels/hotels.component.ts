@@ -10,7 +10,8 @@ import { CardComponentInfo } from 'src/app/shared/interfaces/card-component-info
 @Component({
   selector: 'app-hotels',
   templateUrl: './hotels.component.html',
-  styleUrls: ['./hotels.component.scss']
+  styleUrls: ['./hotels.component.scss'],
+  standalone: false
 })
 export class HotelsComponent implements OnInit {
   
