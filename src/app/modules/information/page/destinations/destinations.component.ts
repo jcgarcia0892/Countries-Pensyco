@@ -1,9 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { CountriesService } from '../../../../services/countries.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, startWith, takeUntil } from 'rxjs/operators';
 import { Destination } from 'src/app/shared/interfaces/destination.interface';
-import { filter, map } from 'rxjs';
 import { CardComponentInfo } from 'src/app/shared/interfaces/card-component-info.interface';
+import { CardInfoMapper } from 'src/app/shared/mappers/card-info.mapper';
+import { CountriesService } from '../../../../services/countries.service';
+
+export interface DestinationViewModel {
+  readonly destination: Destination;
+  readonly cardInfo: CardComponentInfo;
+}
 
 @Component({
   selector: 'app-destinations',
@@ -11,62 +18,55 @@ import { CardComponentInfo } from 'src/app/shared/interfaces/card-component-info
   styleUrls: ['./destinations.component.scss'],
   standalone: false
 })
-export class DestinationsComponent implements OnInit {
+export class DestinationsComponent implements OnInit, OnDestroy {
+  showMisspell = false;
+  destinationViewModels: DestinationViewModel[] = [];
+  readonly destinationControl = new FormControl<string>('', { nonNullable: true });
 
-  showMisspell!: boolean;
-  destinations: Destination[] = [];
+  private readonly destroy$ = new Subject<void>();
 
-  cardInfo!: CardComponentInfo;
+  constructor(private readonly countriesService: CountriesService) {}
 
-  destinationControl = new FormControl<string>('');
-
-  constructor(private countriesService: CountriesService) { 
-    this.destinations = this.countriesService.getDestinations();
-            
-  }
-        
-  ngOnInit() {
+  ngOnInit(): void {
     this.destinationControl.valueChanges
-    .pipe(
-      filter((value) => value === null || value?.length === 0),
-      map(() => null),
-    )
-    .subscribe((value) => {
-      this.searchDestination(value);
-    });
-    
+      .pipe(
+        startWith(this.destinationControl.value),
+        debounceTime(250),
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((searchTerm) => {
+        this.filterDestinations(searchTerm);
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  filterDestinations(searchTerm: string | null): void {
+    const term = searchTerm?.trim() ?? '';
+    const filtered = this.countriesService.searchDestinations(term);
+
+    this.destinationViewModels = filtered.map((dest) => ({
+      destination: dest,
+      cardInfo: CardInfoMapper.fromDestination(dest)
+    }));
+
+    this.showMisspell = term.length > 0 && this.destinationViewModels.length === 0;
+  }
+
+  searchDestination(searchTerm: string | null): void {
+    this.filterDestinations(searchTerm);
   }
 
   getCardInfo(destination: Destination): CardComponentInfo {
-    return {
-      img: {
-        src: destination.img,
-        alt: destination.city,
-        title: destination.city,
-      },
-      actions: {
-        icon: null,
-        title: 'Go to Hotels',
-        route: ['/information/hotels', destination.city],
-      }
-    }
-  };
-  
+    return CardInfoMapper.fromDestination(destination);
+  }
 
-  searchDestination(value: string | null){
-    if(!value) {
-      this.showMisspell = false;
-      this.destinations = this.countriesService.getDestinations();
-      return;
-    };
-
-    this.destinations = this.destinations.filter((destination) => {
-      let cityName = destination.city.toLowerCase();
-      return cityName.indexOf(value.toLowerCase()) >= 0;
-    });
-
-    if(this.destinations.length === 0){
-      this.showMisspell = true;
-    }
-  };
+  // Getter for template backwards compatibility if needed
+  get destinations(): Destination[] {
+    return this.destinationViewModels.map((vm) => vm.destination);
+  }
 }

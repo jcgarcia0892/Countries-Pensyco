@@ -1,11 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { CountriesService } from '../../../../services/countries.service';
-import { AbstractControl } from '@angular/forms';
-import { Destination, Hotel } from 'src/app/shared/interfaces/destination.interface';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Destination } from 'src/app/shared/interfaces/destination.interface';
+import { Hotel } from 'src/app/shared/interfaces/hotel.interface';
 import { DateForm } from 'src/app/shared/interfaces/date-form.interface';
 import { CardComponentInfo } from 'src/app/shared/interfaces/card-component-info.interface';
+import { CardInfoMapper } from 'src/app/shared/mappers/card-info.mapper';
+import { CustomValidators } from 'src/app/shared/validators/custom-validators';
+import { CartService } from '../../../../services/cart.service';
+import { CountriesService } from '../../../../services/countries.service';
+
+export interface HotelViewModel {
+  readonly hotel: Hotel;
+  readonly cardInfo: CardComponentInfo;
+}
 
 @Component({
   selector: 'app-hotels',
@@ -13,100 +23,103 @@ import { CardComponentInfo } from 'src/app/shared/interfaces/card-component-info
   styleUrls: ['./hotels.component.scss'],
   standalone: false
 })
-export class HotelsComponent implements OnInit {
-  
-  destination!: Destination | undefined;
-  
-  minDateArrived = new Date();
-  
-  minDateDepartured = new Date();
-  
-  showHotels = false;
-  
-  errors = false;
-  
-  person = 1;
-  
-  dateArrived!: Date;
-  
-  dateDeparted!: Date;
+export class HotelsComponent implements OnInit, OnDestroy {
+  destination: Destination | undefined;
+  hotelViewModels: HotelViewModel[] = [];
 
-  forma: FormGroup<DateForm> = this.fb.group({
-    arrived: [null,[Validators.required]],
-    departed: [null, [Validators.required]]
+  readonly minDateArrived = new Date();
+  readonly minDateDepartured = new Date();
+
+  showHotels = false;
+  errors = false;
+  person = 1;
+
+  dateArrived: Date | null = null;
+  dateDeparted: Date | null = null;
+
+  readonly forma: FormGroup<DateForm> = new FormGroup<DateForm>({
+    arrived: new FormControl<Date | null>(null, [Validators.required]),
+    departed: new FormControl<Date | null>(null, [Validators.required])
+  }, {
+    validators: [CustomValidators.dateOrder('arrived', 'departed')]
   });
 
- 	 constructor(	private acRoute:ActivatedRoute,
-  				      private countriesService: CountriesService,
-                private fb: UntypedFormBuilder) {}
+  private readonly destroy$ = new Subject<void>();
 
-  ngOnInit() {
-    this.acRoute.params.subscribe( (data) =>{
-      this.destination = this.countriesService.getDestination(data['name']);
-    });
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly countriesService: CountriesService,
+    private readonly cartService: CartService
+  ) {}
+
+  ngOnInit(): void {
+    this.route.params
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params) => {
+        const cityName = params['name'];
+        this.destination = this.countriesService.getDestination(cityName);
+        this.hotelViewModels = (this.destination?.hotels ?? []).map((hotel) => ({
+          hotel,
+          cardInfo: CardInfoMapper.fromHotel(hotel)
+        }));
+      });
   }
 
-  addPerson(): any{
-    if(this.person < 51){
-      return this.person++;
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  addPerson(): void {
+    if (this.person < 50) {
+      this.person++;
     }
   }
 
-  removePerson(): any{
-    if(this.person > 1){
-      return this.person--;
+  removePerson(): void {
+    if (this.person > 1) {
+      this.person--;
     }
   }
 
-  shoppingCar(hotel: Hotel, person: number, dateArrived: Date, dateDeparted: Date){
-    this.countriesService.shoppingCar(hotel, person, dateArrived, dateDeparted);
-    
+  shoppingCar(hotel: Hotel, person: number, dateArrived: Date | null, dateDeparted: Date | null): void {
+    if (!dateArrived || !dateDeparted) {
+      return;
+    }
+    this.cartService.addItem(hotel, person, dateArrived, dateDeparted);
   }
 
   book(): void {
-    Object.values(this.forma.controls).forEach((control: AbstractControl) => {
-      return control.markAsTouched();
-    });
-    
+    this.forma.markAllAsTouched();
+
     this.dateArrived = this.forma.controls.arrived.value;
     this.dateDeparted = this.forma.controls.departed.value;
-    
-    
-    if(this.dateArrived > this.dateDeparted){
+
+    if (this.forma.hasError('invalidDateRange') || (this.dateArrived && this.dateDeparted && this.dateArrived > this.dateDeparted)) {
       this.showHotels = false;
       this.errors = true;
+      return;
     }
-    
-    if(this.forma.valid){
+
+    if (this.forma.valid) {
       this.errors = false;
       this.showHotels = true;
+    } else {
+      this.showHotels = false;
     }
   }
 
   getCardInfo(hotel: Hotel): CardComponentInfo {
-    return {
-      img: {
-        src: hotel.img,
-        alt: hotel.name,
-        title: hotel.name,
-      },
-      actions: {
-        icon: 'fa fa-shopping-cart',
-        title: 'Add to cart',
-        route: ['/information/shopping',],
-      }
-    }
+    return CardInfoMapper.fromHotel(hotel);
   }
 
-    /*-------forma-date --------------*/
-   
-    get arrivedInvalid(){
-      return this.forma.controls.arrived?.invalid && this.forma.controls.arrived?.touched;
-    }
-  
-    get departedInvalid(){
-      return this.forma.controls.departed?.invalid && this.forma.controls.departed?.touched;
-    }
+  get arrivedInvalid(): boolean {
+    const ctrl = this.forma.controls.arrived;
+    return !!(ctrl?.invalid && ctrl?.touched);
+  }
 
+  get departedInvalid(): boolean {
+    const ctrl = this.forma.controls.departed;
+    return !!(ctrl?.invalid && ctrl?.touched);
+  }
 }
-

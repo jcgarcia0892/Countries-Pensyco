@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { CountriesService } from 'src/app/services/countries.service';
-import { CreditCardform, DebitCardForm } from 'src/app/shared/interfaces/card-form.interface';
-import { Hotel } from 'src/app/shared/interfaces/destination.interface';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { CartService } from 'src/app/services/cart.service';
+import { CartItem } from 'src/app/shared/interfaces/cart-item.interface';
+import { CreditCardForm } from 'src/app/shared/interfaces/credit-card-form.interface';
+import { DebitCardForm } from 'src/app/shared/interfaces/debit-card-form.interface';
 import { UserPaymentForm } from 'src/app/shared/interfaces/user-payment-form.interface';
+import { CustomValidators } from 'src/app/shared/validators/custom-validators';
 
 @Component({
   selector: 'app-shopping-car',
@@ -12,205 +15,242 @@ import { UserPaymentForm } from 'src/app/shared/interfaces/user-payment-form.int
   styleUrls: ['./shopping-car.component.scss'],
   standalone: false
 })
-export class ShoppingCarComponent implements OnInit {
-  
-  forma!:FormGroup<UserPaymentForm>;
-  
+export class ShoppingCarComponent implements OnInit, OnDestroy {
+  forma!: FormGroup<UserPaymentForm>;
   formaDebit!: FormGroup<DebitCardForm>;
-  
-  formaCredit!: FormGroup<CreditCardform>;
-  
+  formaCredit!: FormGroup<CreditCardForm>;
+
   debitValid = false;
-  
   creditValid = false;
-  
   totalPrice = 0;
-  
-  shoppingCarArr: Hotel[] = [];
-  
+  shoppingCarArr: CartItem[] = [];
   showThanks = false;
 
+  private readonly destroy$ = new Subject<void>();
 
-  constructor(  private countriesService: CountriesService,
-                private fb:UntypedFormBuilder,) {}
+  constructor(private readonly cartService: CartService) {}
 
-  ngOnInit() {
-    this.shoppingCarArr = this.countriesService.getShoppingItem();
-    this.createForm();
-    this.createFormDebit();
-    this.createFormCredit();
-    this.totalPriceFunction();
+  ngOnInit(): void {
+    this.createForms();
+
+    this.cartService.items$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((items) => {
+        this.shoppingCarArr = items;
+      });
+
+    this.cartService.totalPrice$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((total) => {
+        this.totalPrice = total;
+      });
   }
 
-  totalPriceFunction(){
-    this.totalPrice = 0;
-    for(let item of this.shoppingCarArr){
-      this.totalPrice += (item.person * item.price);
-    }
-   
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  totalPriceFunction(): number {
     return this.totalPrice;
   }
 
-  removeItem(index:number){
-    this.shoppingCarArr = this.countriesService.removeItem(index);
-    this.totalPriceFunction();
+  removeItem(index: number): void {
+    this.cartService.removeItem(index);
   }
 
-  get nameInvalid(){
-    return this.forma.get('name')?.invalid && this.forma.get('name')?.touched;
+  emptyArr(): void {
+    this.cartService.clear();
   }
 
-  get lastNameInvalid(){
-    return this.forma.get('lastName')?.invalid && this.forma.get('lastName')?.touched;
+  // --- Field Validation Helpers ---
+  get nameInvalid(): boolean {
+    const ctrl = this.forma.controls.name;
+    return !!(ctrl?.invalid && ctrl?.touched);
   }
 
-  get paymentInvalid(){
-    return this.forma.get('payment')?.invalid && this.forma.get('payment')?.touched;
+  get lastNameInvalid(): boolean {
+    const ctrl = this.forma.controls.lastName;
+    return !!(ctrl?.invalid && ctrl?.touched);
   }
 
-  get emailInvalid(){
-    return this.forma.get('email')?.invalid && this.forma.get('email')?.touched;
+  get paymentInvalid(): boolean {
+    const ctrl = this.forma.controls.payment;
+    return !!(ctrl?.invalid && ctrl?.touched);
   }
 
-  get confirmEmailInvalid(){
-    return this.forma.get('confirmEmail')?.invalid && this.forma.get('confirmEmail')?.touched;
-  }
-  
-  get paymentDebit(){
-    return this.forma.value.payment === 'debit';
+  get emailInvalid(): boolean {
+    const ctrl = this.forma.controls.email;
+    return !!(ctrl?.invalid && ctrl?.touched);
   }
 
-  get paymentCredit(){
-    return this.forma.value.payment === 'credit';
+  get confirmEmailInvalid(): boolean {
+    const ctrl = this.forma.controls.confirmEmail;
+    return !!(ctrl?.invalid && ctrl?.touched);
   }
 
-
-
-  /*---------- formulario de la tarjeta de debito ---------*/
-
-  get bankInvalid(){
-    return this.formaDebit.get('bank')?.invalid && this.formaDebit.get('bank')?.touched;
+  get paymentDebit(): boolean {
+    return this.forma.controls.payment.value === 'debit';
   }
 
-  get passwordInvalid(){
-    return this.formaDebit.get('password')?.invalid && this.formaDebit.get('password')?.touched;
+  get paymentCredit(): boolean {
+    return this.forma.controls.payment.value === 'credit';
   }
 
-    /*---------- formulario de la tarjeta de credito ---------*/
-
-  get creditNumberInvalid(){
-    return this.formaCredit.get('creditCardNumber')?.invalid && this.formaCredit.get('creditCardNumber')?.touched;
-  }
-  
-  get creditMonthInvalid(){
-    return this.formaCredit.get('creditCardMonth')?.invalid && this.formaCredit.get('creditCardMonth')?.touched;
+  get bankInvalid(): boolean {
+    const ctrl = this.formaDebit.controls.bank;
+    return !!(ctrl?.invalid && ctrl?.touched);
   }
 
-  get creditYearInvalid(){
-    return this.formaCredit.get('creditCardYear')?.invalid && this.formaCredit.get('creditCardYear')?.touched;
+  get passwordInvalid(): boolean {
+    const ctrl = this.formaDebit.controls.password;
+    return !!(ctrl?.invalid && ctrl?.touched);
   }
 
-  get creditCodeInvalid(){
-     return this.formaCredit.get('creditCardCode')?.invalid && this.formaCredit.get('creditCardCode')?.touched;
+  get creditNumberInvalid(): boolean {
+    const ctrl = this.formaCredit.controls.creditCardNumber;
+    return !!(ctrl?.invalid && ctrl?.touched);
   }
 
-/*----------------------------------------------------------------*/
+  get creditMonthInvalid(): boolean {
+    const ctrl = this.formaCredit.controls.creditCardMonth;
+    return !!(ctrl?.invalid && ctrl?.touched);
+  }
 
-  createForm(){
-    this.forma = this.fb.group({
-      name:         ['', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]],
-      lastName:     ['', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]],
-      email:        ['',[Validators.required, Validators.email]],
-      confirmEmail: ['', [Validators.required, Validators.email]],
-      payment:      ['', [Validators.required]]
+  get creditYearInvalid(): boolean {
+    const ctrl = this.formaCredit.controls.creditCardYear;
+    return !!(ctrl?.invalid && ctrl?.touched);
+  }
+
+  get creditCodeInvalid(): boolean {
+    const ctrl = this.formaCredit.controls.creditCardCode;
+    return !!(ctrl?.invalid && ctrl?.touched);
+  }
+
+  // --- Form Initialization ---
+  private createForms(): void {
+    this.forma = new FormGroup<UserPaymentForm>({
+      name: new FormControl<string>('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.minLength(1), Validators.maxLength(30)]
+      }),
+      lastName: new FormControl<string>('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.minLength(1), Validators.maxLength(30)]
+      }),
+      email: new FormControl<string>('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.email]
+      }),
+      confirmEmail: new FormControl<string>('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.email]
+      }),
+      payment: new FormControl<string>('', {
+        nonNullable: true,
+        validators: [Validators.required]
+      })
     }, {
-      validators: [this.sameEmail],
+      validators: [CustomValidators.matchFields('email', 'confirmEmail')]
+    });
+
+    this.formaDebit = new FormGroup<DebitCardForm>({
+      bank: new FormControl<string>('', {
+        nonNullable: true,
+        validators: [Validators.required]
+      }),
+      password: new FormControl<string>('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(4),
+          CustomValidators.numericOnly()
+        ]
+      })
+    });
+
+    this.formaCredit = new FormGroup<CreditCardForm>({
+      creditCardNumber: new FormControl<string>('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(16),
+          Validators.maxLength(16),
+          CustomValidators.numericOnly()
+        ]
+      }),
+      creditCardMonth: new FormControl<string>('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(2),
+          CustomValidators.numericOnly()
+        ]
+      }),
+      creditCardYear: new FormControl<string>('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(2),
+          CustomValidators.numericOnly()
+        ]
+      }),
+      creditCardCode: new FormControl<string>('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(3),
+          CustomValidators.numericOnly()
+        ]
+      })
     });
   }
 
-  /*------------------ formulario de la tarjeta de debito -----------------------------*/
-
-  createFormDebit(){
-    this.formaDebit = this.fb.group({
-      bank:     ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4), this.typeNumberFunction]]
-    })
-  }
-
-  /*--------------------------------------------------------------*/
-
-  createFormCredit(){
-    this.formaCredit = this.fb.group({
-      creditCardNumber: ['', [Validators.required, Validators.minLength(16), Validators.maxLength(16), this.typeNumberFunction]],
-      creditCardMonth:  ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2), this.typeNumberFunction]],
-      creditCardYear:   ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2), this.typeNumberFunction]],
-      creditCardCode:   ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3), this.typeNumberFunction]]
-    })
-  }
-
-
   sendInformation(): void {
-    if(this.forma.invalid){
-      return Object.values( this.forma.controls ).forEach((control: AbstractControl) => {
-        control.markAsTouched();
-      })
-    } 
-
-    if(this.forma.status === 'VALID' && (this.formaCredit.status === 'VALID' || this.formaDebit.status === 'VALID')){
-      this.showThanks = true;
+    if (this.forma.invalid) {
+      this.forma.markAllAsTouched();
       return;
-    };
+    }
 
-    Object.values(this.formaCredit.controls).forEach((control: AbstractControl) => {
-      control.markAsTouched();
-    })
+    const isDebitSelected = this.paymentDebit;
+    const isCreditSelected = this.paymentCredit;
 
-    Object.values(this.formaDebit.controls).forEach((control: AbstractControl) => {
-      control.markAsTouched();
-    })
+    if (isDebitSelected && this.formaDebit.invalid) {
+      this.formaDebit.markAllAsTouched();
+      return;
+    }
+
+    if (isCreditSelected && this.formaCredit.invalid) {
+      this.formaCredit.markAllAsTouched();
+      return;
+    }
+
+    const isPaymentMethodValid =
+      (isDebitSelected && this.formaDebit.valid) ||
+      (isCreditSelected && this.formaCredit.valid);
+
+    if (this.forma.valid && isPaymentMethodValid) {
+      this.showThanks = true;
+    }
   }
 
   validDebit(): void {
-    if(this.formaDebit.invalid){
-      return Object.values( this.formaDebit.controls ).forEach((control: AbstractControl) => {
-        control.markAsTouched();
-      })
-    };
+    if (this.formaDebit.invalid) {
+      this.formaDebit.markAllAsTouched();
+      return;
+    }
     this.debitValid = true;
   }
 
   validCredit(): void {
-    if(this.formaCredit.invalid){
-      return Object.values( this.formaCredit.controls ).forEach((control: AbstractControl) => {
-        control.markAsTouched();
-      })
-    };
+    if (this.formaCredit.invalid) {
+      this.formaCredit.markAllAsTouched();
+      return;
+    }
     this.creditValid = true;
-  }
-
-  sameEmail(formGroup: FormGroup<UserPaymentForm>): void {
-    const email = formGroup.controls.email; 
-    const confirmEmail = formGroup.controls.confirmEmail;
-
-    if(email.value === confirmEmail.value){
-      confirmEmail.setErrors(null);
-    }else{
-      confirmEmail.setErrors({ differentEmail: true });
-    }
-  }
-
-  typeNumberFunction(control: FormControl<string>):{[s:string]:boolean} | null{
-    let codeNumber = control.value;
-
-    if(isNaN(Number(codeNumber))){
-      return {
-        codNumber:true
-      };
-    }
-    return null;
-  }
-
-  emptyArr(){
-    this.shoppingCarArr.length = 0;
   }
 }

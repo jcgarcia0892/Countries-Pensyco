@@ -30,12 +30,12 @@
 	</section>
 
 	<section class="destinations">
-		<app-card *ngFor="let destination of destinations" [info]="getCardInfo(destination)">
-			<h5 class="destinations__heading">{{destination.city}}</h5>
+		<app-card *ngFor="let vm of destinationViewModels" [info]="vm.cardInfo">
+			<h5 class="destinations__heading">{{vm.destination.city}}</h5>
 			<p class="destinations__subtitle">Touristic places</p>
 			
 			<ul class="destinations__content">
-				<li *ngFor="let place of destination.places">{{place}}</li>
+				<li *ngFor="let place of vm.destination.places">{{place}}</li>
 			</ul>
 		</app-card>
 	</section>

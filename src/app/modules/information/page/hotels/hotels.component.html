@@ -55,13 +55,13 @@
 		<h3>{{destination?.city}}</h3>
 		<section class="package">
 			<app-card
-				*ngFor="let hotel of destination?.hotels"
-				[info]="getCardInfo(hotel)"
-				(cardButtonAction)="shoppingCar(hotel, person, dateArrived, dateDeparted)">
-				<p class="package__address">Address: {{hotel.adress}}</p>
+				*ngFor="let vm of hotelViewModels"
+				[info]="vm.cardInfo"
+				(cardButtonAction)="shoppingCar(vm.hotel, person, dateArrived, dateDeparted)">
+				<p class="package__address">Address: {{vm.hotel.adress}}</p>
 				<div class="package__rating">
 					<p>Guest: {{person}} </p>
-					<p>Rating: {{hotel.qualification}}</p>
+					<p>Rating: {{vm.hotel.qualification}}</p>
 				</div>
 				<p>Features: </p>
 				<ul class="package__features">
@@ -71,42 +71,10 @@
 					<li>Breakfast</li>
 				</ul>
 				<div class="package__price">
-					<p class="price">{{hotel.price | currency }}</p>
+					<p class="price">{{vm.hotel.price | currency }}</p>
 					<p>Price/person</p>
 				</div>
 			</app-card>
-				<!-- <div class="package-card" *ngFor="let hotel of destination?.hotels">
-					<div class="image image-normal">
-						<img class="image-box-image" [src]="hotel.img" [alt]="hotel.name">
-						<h4 class="card-heading">{{hotel.name}}</h4>
-					</div>
-					<div class="package-content">
-						<p class="includes">Address: {{hotel.adress}}</p>
-						<div class="rating-box">
-							<p>Guest: {{person}} </p>
-							<p>Rating: {{hotel.qualification}}</p>
-						</div>
-						<p>Features: </p>
-						<ul class="package-features">
-							<li>Swimming Pool</li>
-							<li class="hotel-feature">Wifi</li>
-							<li>Restaurant</li>
-							<li>Breakfast</li>
-						</ul>
-						<div class="package-price">
-							<p class="price">{{hotel.price | currency }}</p>
-							<p>Price/person</p>
-						</div>
-						<div class="add-box">
-							<a	[routerLink]="['/information/shopping']"
-								class="add-car"
-								(click)="shoppingCar(hotel, person, dateArrived, dateDeparted)">
-								Add to cart
-								<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-							</a>
-						</div>
-					</div>
-				</div> -->
 		</section>
 	</div>	
 

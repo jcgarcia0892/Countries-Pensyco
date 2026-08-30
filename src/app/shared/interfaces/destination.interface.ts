@@ -1,18 +1,13 @@
-export interface Destination {
-    city: string;
-    img: string;
-    id: number;
-    places: string[];
-    hotels: Hotel[];
-};
+import { Hotel } from './hotel.interface';
 
-export interface Hotel {
-    name: string;
-    adress: string;
-    qualification: string;
-    img: string;
-    person: number;
-    price: number;
-    date1?: Date;
-    date2?: Date;
-};
+export interface Destination {
+  readonly id: number;
+  readonly city: string;
+  readonly img: string;
+  readonly places: readonly string[];
+  readonly hotels: readonly Hotel[];
+}
+
+// Re-exports for backwards compatibility
+export * from './hotel.interface';
+export * from './cart-item.interface';

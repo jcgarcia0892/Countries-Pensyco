@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -6,20 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
   standalone: false
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  appear = 0;
+  private timerId: ReturnType<typeof setTimeout> | null = null;
 
-	appear:number = 0;
-
-  constructor() {
-
-  		setTimeout(()=>{
-  			return this.appear = 1;
-  		}, 1000);
-
-
-   }
-
-  ngOnInit() {
+  ngOnInit(): void {
+    this.timerId = setTimeout(() => {
+      this.appear = 1;
+    }, 1000);
   }
 
+  ngOnDestroy(): void {
+    if (this.timerId !== null) {
+      clearTimeout(this.timerId);
+    }
+  }
 }
