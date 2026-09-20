@@ -6,3 +6,4 @@ export * from './debit-card-form.interface';
 export * from './destination.interface';
 export * from './hotel.interface';
 export * from './user-payment-form.interface';
+export * from './api-response.interface';

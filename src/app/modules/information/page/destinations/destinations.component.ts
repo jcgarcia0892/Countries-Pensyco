@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, startWith, takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { Destination } from 'src/app/shared/interfaces/destination.interface';
 import { CardComponentInfo } from 'src/app/shared/interfaces/card-component-info.interface';
 import { CardInfoMapper } from 'src/app/shared/mappers/card-info.mapper';
@@ -33,10 +33,21 @@ export class DestinationsComponent implements OnInit, OnDestroy {
         startWith(this.destinationControl.value),
         debounceTime(250),
         distinctUntilChanged(),
+        switchMap((searchTerm) =>
+          this.countriesService.searchDestinations(searchTerm ?? '').pipe(
+            map((destinations) => ({ searchTerm, destinations }))
+          )
+        ),
         takeUntil(this.destroy$)
       )
-      .subscribe((searchTerm) => {
-        this.filterDestinations(searchTerm);
+      .subscribe(({ searchTerm, destinations }) => {
+        const term = searchTerm?.trim() ?? '';
+        this.destinationViewModels = destinations.map((dest) => ({
+          destination: dest,
+          cardInfo: CardInfoMapper.fromDestination(dest)
+        }));
+
+        this.showMisspell = term.length > 0 && this.destinationViewModels.length === 0;
       });
   }
 
@@ -47,14 +58,17 @@ export class DestinationsComponent implements OnInit, OnDestroy {
 
   filterDestinations(searchTerm: string | null): void {
     const term = searchTerm?.trim() ?? '';
-    const filtered = this.countriesService.searchDestinations(term);
+    this.countriesService
+      .searchDestinations(term)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((destinations) => {
+        this.destinationViewModels = destinations.map((dest) => ({
+          destination: dest,
+          cardInfo: CardInfoMapper.fromDestination(dest)
+        }));
 
-    this.destinationViewModels = filtered.map((dest) => ({
-      destination: dest,
-      cardInfo: CardInfoMapper.fromDestination(dest)
-    }));
-
-    this.showMisspell = term.length > 0 && this.destinationViewModels.length === 0;
+        this.showMisspell = term.length > 0 && this.destinationViewModels.length === 0;
+      });
   }
 
   searchDestination(searchTerm: string | null): void {

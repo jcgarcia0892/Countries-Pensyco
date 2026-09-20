@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { Destination } from 'src/app/shared/interfaces/destination.interface';
 import { Hotel } from 'src/app/shared/interfaces/hotel.interface';
 import { DateForm } from 'src/app/shared/interfaces/date-form.interface';
@@ -54,10 +54,15 @@ export class HotelsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.params
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((params) => {
-        const cityName = params['name'];
-        this.destination = this.countriesService.getDestination(cityName);
+      .pipe(
+        switchMap((params) => {
+          const cityName = params['name'];
+          return this.countriesService.getDestination(cityName);
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((destination) => {
+        this.destination = destination;
         this.hotelViewModels = (this.destination?.hotels ?? []).map((hotel) => ({
           hotel,
           cardInfo: CardInfoMapper.fromHotel(hotel)
